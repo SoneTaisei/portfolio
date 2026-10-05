@@ -12,29 +12,37 @@ const PORTFOLIO_PROJECTS = [
     category: "engine", // "engine" | "game" | "unity-tools"
     featured: true,     // おすすめバッジを表示するか
     title: "SoneEngine (自作ゲームエンジン)",
-    subTitle: "DirectX / C++ / ImGui",
+    subTitle: "C++ / 独自物理挙動 / リプレイエディター",
     repoUrl: "https://github.com/SoneTaisei/SoneEngine",
     image: "", // 画像がある場合は "assets/images/sone-engine.png" のように指定
     icon: "fa-solid fa-cubes",
     iconColor: "#ea580c",
-    tags: ["C++", "DirectX", "Dear ImGui", "自作エンジン"],
-    shortDesc: "DirectXを用いた描画パイプラインの構築と、ImGuiによるデバッグ・開発ツールを統合した独自のC++製ゲームエンジンです。",
+    tags: ["C++", "DirectX", "独自物理挙動", "リプレイエディター", "Dear ImGui"],
+    shortDesc: "独自実装の物理挙動シミュレーションと、1フレーム単位で挙動を巻き戻し・検証できるデバッグ用リプレイエディターを統合したC++製ゲームエンジン。",
     details: {
-      summary: "市販のゲームエンジンに頼らず、ハードウェアとDirectXの描画パイプラインの仕組みを深く理解するためにゼロから構築したオリジナルのゲームエンジンです。デバッグ効率と拡張性を重視して設計しています。",
-      role: "個人開発（エンジンアーキテクチャ設計、DirectX描画パイプライン、デバッグGUI構築）",
+      summary: "描画パイプラインの構築にとどまらず、ゲーム開発における『手触りの良さ』と『デバッグ効率の極大化』を徹底的に追求したオリジナルゲームエンジンです。特に、剛体・衝突判定の物理挙動の自前実装と、不具合の瞬間を1フレーム単位で巻き戻して内部パラメータを検証できるデバッグ用リプレイエディターを最大の強みとしています。",
+      role: "個人開発（エンジンアーキテクチャ、物理演算パイプライン、リプレイシステム、ImGuiデバッグUI）",
       period: "開発中 / 継続アップデート",
       points: [
-        "DirectX描画パイプラインの自作と、頂点バッファ・定数バッファのバインド管理",
-        "#ifdef USE_IMGUI によるデバッグ/デベロップモードの切り替えと、リアルタイムなGUIパラメータ調整機能の実装",
-        "テクスチャ、3Dメッシュなどのアセット管理機構とリソースリーク防止設計",
-        "ゲームオブジェクトの階層構造（親子関係）およびトランスフォーム行列計算の自作"
+        "【デバッグ用リプレイエディター】入力とゲーム状態のスナップショット管理により、1フレーム単位のコマ送り・巻き戻し（Rewind）を実現。再現性の低いバグも確実に原因特定が可能",
+        "【独自の物理挙動シミュレーション】OBB/カプセル/球による交差判定、めり込み補正、反発・摩擦の力学計算を自前で実装し、破綻のない滑らかな挙動を担保",
+        "【ImGui連携デバッグ環境】#ifdef USE_IMGUI により、リプレイ巻き戻し中にもタイムラインシーク、コライダー枠・速度ベクトルの可視化、パラメータのリアルタイム調整が可能",
+        "【DirectX描画パイプライン】頂点/ピクセルシェーダー、定数バッファのアライメント管理、テクスチャや3Dメッシュのアセット管理アーキテクチャの自作"
       ],
-      codeSnippet: `// ImGuiデバッグ制御の設計例
+      codeSnippet: `// リプレイエディターとデバッグUIの制御例
 #ifdef USE_IMGUI
-    ImGui::Begin("エンジン設定 / インスペクター");
-    ImGui::DragFloat3("平行光源の向き", &lightDir.x, 0.05f);
-    ImGui::ColorEdit3("環境光カラー", &ambientColor.x);
-    ImGui::Text("フレームレート: %.1f FPS", ImGui::GetIO().Framerate);
+    ImGui::Begin("リプレイ & 物理デバッガー");
+    if (ImGui::Button("録画 / 一時停止")) { replayManager_->TogglePause(); }
+    
+    // タイムラインシークバー（巻き戻し）
+    int currentFrame = replayManager_->GetCurrentFrame();
+    if (ImGui::SliderInt("フレームシーク", &currentFrame, 0, replayManager_->GetMaxFrame())) {
+        replayManager_->SeekFrame(currentFrame); // 状態を巻き戻し復元
+    }
+    
+    // 物理パラメータと速度ベクトルの検証
+    ImGui::Text("剛体速度: (%.2f, %.2f, %.2f)", rb.velocity.x, rb.velocity.y, rb.velocity.z);
+    ImGui::Checkbox("コライダーワイヤーフレーム表示", &debugDrawColliders);
     ImGui::End();
 #endif`
     }

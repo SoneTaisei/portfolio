@@ -67,11 +67,11 @@
           </div>
           <h1 class="hero-heading">
             仕組みを理解し、<br>
-            <span class="accent-text">手触りの良さ</span>を支える技術を追求する。
+            <span class="accent-text">手触りの良さと開発効率</span>を支える技術を追求する。
           </h1>
           <p class="hero-lead">
             はじめまして、曽根 大成（そね たいせい）です。<br>
-            市販エンジンを使うだけでなく、DirectXやC++を用いた自作ゲームエンジン（<code>SoneEngine</code>）の構築やHLSLシェーダー、3D幾何計算など、ハードウェアと描画の仕組みを直に制御する低レイヤーのプログラミングに取り組んでいます。
+            市販エンジンを使うだけでなく、C++とDirectXを用いた自作ゲームエンジン（<code>SoneEngine</code>）を構築。独自の剛体・衝突物理挙動の実装や、1フレーム単位で挙動を巻き戻して不具合を調査できる「デバッグ用リプレイエディター」の自作など、ゲームの基盤と開発体験を支えるプログラミングに取り組んでいます。
           </p>
 
           <div class="hero-actions">
@@ -98,13 +98,14 @@
               SoneEngine
             </h2>
             <p class="featured-card-desc">
-              DirectXによる描画パイプラインの構築と、ImGuiによるデバッグ・調整用UIを統合した独自のC++製ゲームエンジン。描画やリソース管理の仕組みをゼロから設計しています。
+              自前実装の物理挙動シミュレーションと、1フレーム単位でゲーム挙動を巻き戻し・コマ送り検証できるデバッグ用リプレイエディターを統合した独自のC++製ゲームエンジン。
             </p>
             <div class="featured-tech-chips">
+              <span class="tech-chip">独自物理挙動</span>
+              <span class="tech-chip">リプレイエディター</span>
               <span class="tech-chip">C++</span>
               <span class="tech-chip">DirectX</span>
               <span class="tech-chip">Dear ImGui</span>
-              <span class="tech-chip">Engine Architecture</span>
             </div>
             <div class="featured-card-footer">
               <button class="btn-open-detail" data-target="sone-engine">
@@ -137,33 +138,33 @@
 
             <div class="about-paragraphs">
               <p>
-                「ブラックボックスに頼らず、内部の仕組みを理解して実装する」ことを大切にしています。ゲームが動く土台である描画パイプラインやメモリ管理、数学的基礎を学ぶことで、トラブルが起きたときにも根本から原因を特定し、最適なパフォーマンスを引き出せるプログラマーを目指しています。
+                「ブラックボックスに頼らず、内部の仕組みを理解して実装する」ことを大切にしています。ゲームが動く土台である物理演算や描画パイプライン、メモリ管理を深く学ぶことで、不具合が起きたときにも根本原因を特定し、最適なパフォーマンスを引き出せるプログラマーを目指しています。
               </p>
               <p>
-                現在はC++を用いた自作ゲームエンジンの開発を軸に、DirectX 12/11の描画制御、HLSLによるシェーダープログラミング、3Dアクションゲームの操作感や当たり判定の実装など、幅広い領域に手を動かして挑戦しています。
+                自作ゲームエンジン開発では、ゲームの操作感や気持ちよさに直結する「独自の物理挙動」と、偶発的なバグを1フレーム単位で巻き戻して調査できる「デバッグ用リプレイエディター」の構築に注力してきました。
               </p>
             </div>
 
             <div class="about-philosophy-grid">
               <div class="philosophy-card">
+                <i class="fa-solid fa-rotate-left philosophy-icon"></i>
+                <div>
+                  <h4>デバッグを極めるリプレイエディター</h4>
+                  <p>入力とゲーム状態のスナップショットを管理し、1フレームごとの巻き戻し・コマ送りを実現。偶発的なバグも確実に原因究明できる環境を作りました。</p>
+                </div>
+              </div>
+              <div class="philosophy-card">
+                <i class="fa-solid fa-cubes philosophy-icon"></i>
+                <div>
+                  <h4>手触りを支える独自の物理挙動</h4>
+                  <p>OBBやカプセルの交差判定、めり込み補正、反発・摩擦計算を自前で実装。ゲームプレイの気持ちよさと破綻のなさを両立させています。</p>
+                </div>
+              </div>
+              <div class="philosophy-card">
                 <i class="fa-solid fa-microchip philosophy-icon"></i>
                 <div>
-                  <h4>仕組みを理解した設計と実装</h4>
-                  <p>ライブラリをただ使うだけでなく、内部で何が起きているかを意識してメモリや描画負荷を考えたコードを書きます。</p>
-                </div>
-              </div>
-              <div class="philosophy-card">
-                <i class="fa-solid fa-shapes philosophy-icon"></i>
-                <div>
-                  <h4>3D数学・シェーダーへの探求</h4>
-                  <p>行列演算やクォータニオン、ライティングモデルの数式を理解し、思い通りのビジュアル表現をコードで具現化します。</p>
-                </div>
-              </div>
-              <div class="philosophy-card">
-                <i class="fa-solid fa-screwdriver-wrench philosophy-icon"></i>
-                <div>
-                  <h4>開発効率を支えるツール作り</h4>
-                  <p>パラメータ調整をリアルタイムに行えるImGuiの導入や、定型作業を減らすスクリプト作成など、開発環境の改善にも積極的です。</p>
+                  <h4>ImGuiによるリアルタイム可視化</h4>
+                  <p>リプレイ再生中にも当たり判定や速度ベクトルを可視化・調整できるなど、開発効率を何倍にも引き上げるツール整備を重視しています。</p>
                 </div>
               </div>
             </div>
