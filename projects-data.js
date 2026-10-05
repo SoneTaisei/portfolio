@@ -16,7 +16,7 @@ const PORTFOLIO_PROJECTS = [
     repoUrl: "https://github.com/SoneTaisei/SoneEngine",
     image: "", // 画像がある場合は "assets/images/sone-engine.png" のように指定
     icon: "fa-solid fa-cubes",
-    iconColor: "#00f0ff",
+    iconColor: "#0284c7",
     tags: ["C++", "DirectX", "Dear ImGui", "自作エンジン"],
     shortDesc: "DirectXを用いた描画パイプラインの構築と、ImGuiによるデバッグ・開発ツールを統合した独自のC++製ゲームエンジンです。",
     details: {
@@ -48,7 +48,7 @@ const PORTFOLIO_PROJECTS = [
     repoUrl: "https://github.com/SoneTaisei/PG3",
     image: "",
     icon: "fa-solid fa-gamepad",
-    iconColor: "#38bdf8",
+    iconColor: "#2563eb",
     tags: ["C++", "3Dアクション", "ゲームループ", "当たり判定"],
     shortDesc: "C++で制作した3Dアクションゲーム。プレイヤーの移動・ジャンプ挙動、カメラ追従、敵との当たり判定、ステージ進行を実装。",
     details: {
@@ -78,7 +78,7 @@ void Player::Update() {
     repoUrl: "https://github.com/SoneTaisei/MT4",
     image: "",
     icon: "fa-solid fa-wand-magic-sparkles",
-    iconColor: "#c084fc",
+    iconColor: "#7c3aed",
     tags: ["HLSL", "シェーダー", "DirectX", "ライティング"],
     shortDesc: "プログラマブルシェーダーによるグラフィックス表現の研究。頂点/ピクセルシェーダー、ライティングモデル、ポストプロセスを実装。",
     details: {
@@ -107,7 +107,7 @@ return float4(albedo.rgb * diffuse, albedo.a);`
     repoUrl: "https://github.com/SoneTaisei/AL4",
     image: "",
     icon: "fa-solid fa-shield-halved",
-    iconColor: "#38bdf8",
+    iconColor: "#0d9488",
     tags: ["C++", "アルゴリズム", "敵AI", "設計パターン"],
     shortDesc: "保守性と拡張性の高いゲーム設計を目指したアルゴリズム研究。エネミー行動制御やデータ構造の最適化に取り組みました。",
     details: {
@@ -139,7 +139,7 @@ public:
     repoUrl: "https://github.com/SoneTaisei/00_01_ExtendedTo3D",
     image: "",
     icon: "fa-solid fa-compass-drafting",
-    iconColor: "#34d399",
+    iconColor: "#059669",
     tags: ["C++", "3D数学", "線形代数", "クォータニオン"],
     shortDesc: "既存ライブラリに頼らず、3D変換行列やベクトルの計算を自前で実装。ゲームを支える数学的基盤を構築。",
     details: {
@@ -170,7 +170,7 @@ Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rot, const Vecto
     repoUrl: "https://github.com/SoneTaisei/TD2_L2_1",
     image: "",
     icon: "fa-solid fa-crosshairs",
-    iconColor: "#38bdf8",
+    iconColor: "#ea580c",
     tags: ["C++", "アクション", "演出制御", "ステージギミック"],
     shortDesc: "操作の心地よさとテンポの良いゲーム性を目指したアクションゲーム制作。ギミックの配置や演出の細部にこだわった作品。",
     details: {
@@ -199,7 +199,7 @@ if (isHit) {
     repoUrl: "https://github.com/SoneTaisei/TR1_2_Unity",
     image: "",
     icon: "fa-brands fa-unity",
-    iconColor: "#f43f5e",
+    iconColor: "#e11d48",
     tags: ["Unity", "C#", "コンポーネント指向", "物理挙動"],
     shortDesc: "UnityとC#によるゲーム制作。コンポーネント指向に基づいた設計と、物理挙動を活用したスピーディーなゲームプレイを構築。",
     details: {
@@ -230,7 +230,7 @@ public class PlayerAttack : MonoBehaviour {
     repoUrl: "https://github.com/SoneTaisei/TL1",
     image: "",
     icon: "fa-solid fa-terminal",
-    iconColor: "#fbbf24",
+    iconColor: "#d97706",
     tags: ["Batch", "PowerShell", "自動化", "ワークフロー"],
     shortDesc: "日々のビルド作業やファイル管理を効率化するスクリプト群。ゲーム開発を円滑に進めるための環境整備への取り組み。",
     details: {
