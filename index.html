@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Taisei Sone | Game Programmer Portfolio</title>
-  <meta name="description" content="ゲームプログラマー 曽根大成 (Taisei Sone) のポートフォリオサイト。自作ゲームエンジン、DirectX、HLSLシェーダー、C++ゲーム制作などの実績・作品を掲載しています。">
+  <title>曽根 大成 | ゲームプログラマー ポートフォリオ</title>
+  <meta name="description" content="ゲームプログラマー 曽根大成 (Taisei Sone) のポートフォリオサイト。自作ゲームエンジン(SoneEngine)、DirectX、HLSLシェーダー、C++ゲーム制作の実績を掲載しています。">
   
   <!-- OGP Settings -->
-  <meta property="og:title" content="Taisei Sone | Game Programmer Portfolio">
-  <meta property="og:description" content="ゲームプログラマー 曽根大成 (Taisei Sone) のポートフォリオサイト。C++ / DirectX / 自作エンジン / シェーダー作品を掲載。">
+  <meta property="og:title" content="曽根 大成 | ゲームプログラマー ポートフォリオ">
+  <meta property="og:description" content="C++ / DirectX / 自作エンジン / HLSLシェーダーを軸にしたゲームプログラミング作品集">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sonetaisei.github.io/">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@300;400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
   <!-- FontAwesome (Icons) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -24,29 +24,29 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Background Canvas for Particle & Grid FX -->
+  <!-- 背景Canvas (パーティクル＆グリッド演出) -->
   <canvas id="bg-canvas"></canvas>
 
-  <!-- Navigation -->
+  <!-- ヘッダー・ナビゲーション -->
   <header class="navbar">
     <div class="nav-container">
       <a href="#hero" class="nav-brand">
-        <span class="brand-code">&lt;</span>TS<span class="brand-code">/&gt;</span>
-        <span class="brand-sub">DEV_LOG</span>
+        <span class="brand-code">&lt;</span>曽根 大成<span class="brand-code">/&gt;</span>
+        <span class="brand-sub">PORTFOLIO</span>
       </a>
 
       <nav class="nav-menu" id="nav-menu">
-        <a href="#about" class="nav-link">About</a>
-        <a href="#skills" class="nav-link">Skills</a>
-        <a href="#works" class="nav-link">Works</a>
-        <a href="#contact" class="nav-link">Contact</a>
+        <a href="#about" class="nav-link">自己紹介</a>
+        <a href="#skills" class="nav-link">習得スキル</a>
+        <a href="#works" class="nav-link">制作実績</a>
+        <a href="#contact" class="nav-link">お問い合わせ</a>
         <a href="https://github.com/SoneTaisei" target="_blank" rel="noopener noreferrer" class="nav-github-link">
           <i class="fa-brands fa-github"></i>
           <span>GitHub</span>
         </a>
       </nav>
 
-      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
+      <button class="menu-toggle" id="menu-toggle" aria-label="メニューを開閉">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
@@ -55,41 +55,41 @@
   </header>
 
   <main>
-    <!-- Hero Section -->
+    <!-- ヒーローセクション -->
     <section id="hero" class="hero-section">
       <div class="container hero-content">
         <div class="hero-badge">
           <span class="pulse-indicator"></span>
-          GAME PROGRAMMER / GRAPHICS
+          ゲームプログラマー志望 / エンジン・グラフィックス開発
         </div>
         <h1 class="hero-title">
-          Crafting Gameplay with <br>
-          <span class="gradient-text">Engine &amp; Low-Level</span> Logic
+          低レイヤーの探求と、<br>
+          <span class="gradient-text">自作エンジンで創る</span> ゲーム開発
         </h1>
         <p class="hero-subtitle">
-          自作ゲームエンジン開発、DirectX / HLSLシェーダー、3D数学、C++による低レイヤー・パフォーマンス重視のゲームプログラミングを追求しています。
+          自作ゲームエンジン（<code>SoneEngine</code>）の開発、DirectX / HLSLシェーダーによるグラフィックス制御、3D数学、C++によるパフォーマンス重視のプログラミングを追求しています。
         </p>
         
         <div class="hero-stats">
           <div class="stat-card">
-            <span class="stat-num">C++ / DX</span>
-            <span class="stat-label">Core Tech</span>
+            <span class="stat-num">C++ / DirectX</span>
+            <span class="stat-label">主要技術</span>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-card">
-            <span class="stat-num">8+</span>
-            <span class="stat-label">Projects</span>
+            <span class="stat-num">8作品</span>
+            <span class="stat-label">制作実績</span>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-card">
-            <span class="stat-num">Engine Dev</span>
-            <span class="stat-label">Specialty</span>
+            <span class="stat-num">自作エンジン</span>
+            <span class="stat-label">得意分野</span>
           </div>
         </div>
 
         <div class="hero-actions">
           <a href="#works" class="btn btn-primary">
-            <i class="fa-solid fa-gamepad"></i> 作品一覧を見る
+            <i class="fa-solid fa-gamepad"></i> 制作実績を見る
           </a>
           <a href="https://github.com/SoneTaisei" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
             <i class="fa-brands fa-github"></i> GitHub リポジトリ
@@ -98,16 +98,16 @@
       </div>
 
       <div class="scroll-down-hint">
-        <span>SCROLL</span>
+        <span>スクロール</span>
         <i class="fa-solid fa-chevron-down"></i>
       </div>
     </section>
 
-    <!-- About Section -->
+    <!-- 自己紹介セクション -->
     <section id="about" class="section about-section">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">// 01. ABOUT ME</span>
+          <span class="section-tag">// 01. 自己紹介</span>
           <h2 class="section-title">自己紹介 &amp; 開発への想い</h2>
         </div>
 
@@ -125,28 +125,28 @@
                 「ブラックボックスに頼らず、仕組みを深く理解して創る」を信条とするゲームプログラマー志望です。
               </p>
               <p class="about-desc">
-                市販ゲームエンジンを使うだけでなく、DirectXやC++を用いた自作ゲームエンジン（<code>SoneEngine</code>）の構築、HLSLシェーダーによる描画パイプラインの制御、3Dベクトルの幾何計算など、ハードウェアと描画の仕組みを直に制御する低レイヤープログラミングに強い関心を持って取り組んでいます。
+                市販のゲームエンジンを使うだけでなく、DirectXやC++を用いた自作ゲームエンジン（<code>SoneEngine</code>）の構築、HLSLシェーダーによる描画パイプラインの制御、3Dベクトルの幾何計算など、ハードウェアと描画の仕組みを直に制御する低レイヤープログラミングに強い情熱を持って取り組んでいます。
               </p>
               <div class="about-highlights">
                 <div class="highlight-item">
                   <i class="fa-solid fa-microchip"></i>
                   <div>
                     <h4>低レイヤー &amp; アーキテクチャ</h4>
-                    <p>メモリ管理、キャッシュ効率、DirectXパイプラインとImGuiによる開発ツール整備を重視。</p>
+                    <p>メモリ管理、DirectX描画パイプラインの制御、ImGuiを活用した開発用GUIの構築を重視しています。</p>
                   </div>
                 </div>
                 <div class="highlight-item">
                   <i class="fa-solid fa-cubes"></i>
                   <div>
                     <h4>3D数学 &amp; シェーダー</h4>
-                    <p>行列演算、クォータニオン、ライティング・ポストエフェクト等のシェーダー実装力。</p>
+                    <p>行列演算、クォータニオン、各種ライティングモデルやポストエフェクトのシェーダー実装力。</p>
                   </div>
                 </div>
                 <div class="highlight-item">
                   <i class="fa-solid fa-gears"></i>
                   <div>
-                    <h4>プレイフィール &amp; 実装スピード</h4>
-                    <p>プレイヤーの操作感や当たり判定のチューニング、チーム開発を支えるツール制作。</p>
+                    <h4>操作感 &amp; 開発効率化</h4>
+                    <p>プレイヤーの操作感・当たり判定のチューニングに加え、ビルド自動化などのツール制作も実践しています。</p>
                   </div>
                 </div>
               </div>
@@ -155,7 +155,7 @@
 
           <div class="about-info-card">
             <div class="info-box">
-              <span class="info-label">TARGET ROLE</span>
+              <span class="info-label">志望職種</span>
               <span class="info-val">ゲームプログラマー / エンジン・グラフィックス</span>
             </div>
             <div class="info-box">
@@ -163,21 +163,21 @@
               <a href="https://github.com/SoneTaisei" target="_blank" class="info-val link">github.com/SoneTaisei</a>
             </div>
             <div class="info-box">
-              <span class="info-label">INTERESTS</span>
+              <span class="info-label">関心のある技術領域</span>
               <div class="tag-cloud">
                 <span>DirectX 12</span>
                 <span>HLSL</span>
                 <span>C++20</span>
-                <span>Game Engine</span>
-                <span>ImGui</span>
-                <span>Optimization</span>
+                <span>自作ゲームエンジン</span>
+                <span>Dear ImGui</span>
+                <span>高速化・最適化</span>
               </div>
             </div>
             <div class="code-quote">
               <code>
                 <span class="code-kw">while</span> (isAlive) {<br>
-                &nbsp;&nbsp;UpdateSkills();<br>
-                &nbsp;&nbsp;RenderDreams();<br>
+                &nbsp;&nbsp;UpdateSkills(); // 知識を更新<br>
+                &nbsp;&nbsp;RenderDreams(); // ゲームを創る<br>
                 }
               </code>
             </div>
@@ -186,16 +186,16 @@
       </div>
     </section>
 
-    <!-- Skills Section -->
+    <!-- スキルセクション -->
     <section id="skills" class="section skills-section">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">// 02. TECH STACK</span>
+          <span class="section-tag">// 02. 習得スキル</span>
           <h2 class="section-title">スキル &amp; 開発環境</h2>
         </div>
 
         <div class="skills-grid">
-          <!-- Card 1: Languages -->
+          <!-- 1. プログラミング言語 -->
           <div class="skill-category-card">
             <div class="cat-icon"><i class="fa-solid fa-code"></i></div>
             <h3 class="cat-title">プログラミング言語</h3>
@@ -203,88 +203,88 @@
               <li>
                 <div class="skill-meta">
                   <span class="skill-name">C++ (14 / 17 / 20)</span>
-                  <span class="skill-level">Main</span>
+                  <span class="skill-level">主力言語</span>
                 </div>
-                <p class="skill-detail">自作エンジン、オブジェクト指向設計、メモリ管理、テンプレート</p>
+                <p class="skill-detail">自作エンジン構築、オブジェクト指向設計、メモリ管理、テンプレート活用</p>
               </li>
               <li>
                 <div class="skill-meta">
                   <span class="skill-name">HLSL</span>
-                  <span class="skill-level">Graphics</span>
+                  <span class="skill-level">シェーダー</span>
                 </div>
-                <p class="skill-detail">頂点/ピクセルシェーダー、ライティング計算、ポストプロセス</p>
+                <p class="skill-detail">頂点/ピクセルシェーダー、ライティング計算、ポストエフェクト</p>
               </li>
               <li>
                 <div class="skill-meta">
                   <span class="skill-name">C#</span>
                   <span class="skill-level">Unity</span>
                 </div>
-                <p class="skill-detail">Unityでのコンポーネント実装、ゲームロジック構築</p>
+                <p class="skill-detail">Unityでのコンポーネント設計、ゲームロジック構築</p>
               </li>
               <li>
                 <div class="skill-meta">
                   <span class="skill-name">C言語</span>
-                  <span class="skill-level">Basic</span>
+                  <span class="skill-level">基礎</span>
                 </div>
-                <p class="skill-detail">ポインタ、構造体、低水準メモリ操作の基礎</p>
+                <p class="skill-detail">ポインタ、構造体、メモリ確保などの低水準操作の理解</p>
               </li>
             </ul>
           </div>
 
-          <!-- Card 2: Graphics & APIs -->
+          <!-- 2. グラフィックス & ライブラリ -->
           <div class="skill-category-card">
             <div class="cat-icon"><i class="fa-solid fa-cubes-stacked"></i></div>
-            <h3 class="cat-title">グラフィックス &amp; ライブラリ</h3>
+            <h3 class="cat-title">グラフィックス &amp; 描画API</h3>
             <ul class="skill-list">
               <li>
                 <div class="skill-meta">
                   <span class="skill-name">DirectX</span>
-                  <span class="skill-level">Advanced</span>
+                  <span class="skill-level">グラフィックス</span>
                 </div>
-                <p class="skill-detail">DirectX 11/12の描画パイプライン、リソースバインド、パイプラインステート</p>
+                <p class="skill-detail">描画パイプライン制御、リソースバインド、パイプラインステート管理</p>
               </li>
               <li>
                 <div class="skill-meta">
                   <span class="skill-name">Dear ImGui</span>
-                  <span class="skill-level">Tooling</span>
+                  <span class="skill-level">開発ツール</span>
                 </div>
-                <p class="skill-detail">パラメータ調整用GUI、デバッグ情報ビューア、シーン階層表示</p>
+                <p class="skill-detail">ゲーム内デバッグUI、パラメータリアルタイム調整、シーンツリー表示</p>
               </li>
               <li>
                 <div class="skill-meta">
-                  <span class="skill-name">3D Mathematics</span>
-                  <span class="skill-level">Math</span>
+                  <span class="skill-name">3D数学</span>
+                  <span class="skill-level">基礎数学</span>
                 </div>
-                <p class="skill-detail">同次座標系、アフィン変換、回転クォータニオン、当たり判定幾何</p>
+                <p class="skill-detail">4x4同次変換行列、アフィン変換、クォータニオン、OBB/AABB衝突幾何</p>
               </li>
             </ul>
           </div>
 
-          <!-- Card 3: Tools & Engines -->
+          <!-- 3. エンジン & 開発ツール -->
           <div class="skill-category-card">
             <div class="cat-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-            <h3 class="cat-title">エンジン &amp; ツール環境</h3>
+            <h3 class="cat-title">エンジン &amp; 開発環境</h3>
             <ul class="skill-list">
               <li>
                 <div class="skill-meta">
                   <span class="skill-name">SoneEngine</span>
-                  <span class="skill-level">Original</span>
+                  <span class="skill-level">自作</span>
                 </div>
-                <p class="skill-detail">独自に設計・開発したC++製ゲームエンジン</p>
+                <p class="skill-detail">独自に設計・開発を進めているC++製ゲームエンジン</p>
               </li>
               <li>
                 <div class="skill-meta">
                   <span class="skill-name">Unity</span>
-                  <span class="skill-level">Engine</span>
+                  <span class="skill-level">制作実習</span>
                 </div>
-                <p class="skill-detail">プロトタイピング、ゲームジャム・制作実習</p>
+                <p class="skill-detail">プロトタイプ制作、コンポーネント指向プログラミング</p>
               </li>
               <li>
                 <div class="skill-meta">
                   <span class="skill-name">Visual Studio / Git</span>
-                  <span class="skill-level">Workflow</span>
+                  <span class="skill-level">ツール</span>
                 </div>
-                <p class="skill-detail">デバッガ活用、Git/GitHubによるバージョン管理、自動化バッチ</p>
+                <p class="skill-detail">統合開発環境でのデバッグ、Git/GitHubによるバージョン管理、自動化バッチ</p>
               </li>
             </ul>
           </div>
@@ -292,285 +292,36 @@
       </div>
     </section>
 
-    <!-- Works Section -->
+    <!-- 制作実績セクション -->
     <section id="works" class="section works-section">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">// 03. SHOWCASE</span>
+          <span class="section-tag">// 03. 制作実績</span>
           <h2 class="section-title">制作実績・展示物</h2>
           <p class="section-subtitle">自作ゲームエンジンからシェーダー研究、ゲーム制作までの8つのプロジェクト</p>
         </div>
 
-        <!-- Filter Buttons -->
+        <!-- カテゴリフィルター -->
         <div class="filter-controls">
-          <button class="filter-btn active" data-filter="all">All (8)</button>
-          <button class="filter-btn" data-filter="engine">Engine &amp; Graphics</button>
-          <button class="filter-btn" data-filter="game">C++ Game</button>
-          <button class="filter-btn" data-filter="unity-tools">Unity &amp; Tools</button>
+          <button class="filter-btn active" data-filter="all">すべて (8)</button>
+          <button class="filter-btn" data-filter="engine">エンジン &amp; グラフィックス</button>
+          <button class="filter-btn" data-filter="game">C++ ゲーム作品</button>
+          <button class="filter-btn" data-filter="unity-tools">Unity &amp; ツール</button>
         </div>
 
-        <!-- Works Grid (8 items) -->
+        <!-- 作品カード一覧 (projects-data.js から動的に生成) -->
         <div class="works-grid" id="works-grid">
-
-          <!-- 1. SoneEngine -->
-          <article class="work-card" data-category="engine" data-id="sone-engine">
-            <div class="card-thumb">
-              <div class="thumb-badge">FEATURED</div>
-              <div class="mock-canvas engine-preview">
-                <i class="fa-solid fa-cubes"></i>
-                <span>SoneEngine</span>
-                <span class="sub-tech">DirectX / C++ / ImGui</span>
-              </div>
-            </div>
-            <div class="card-content">
-              <div class="card-tags">
-                <span class="tag">C++</span>
-                <span class="tag">DirectX</span>
-                <span class="tag">ImGui</span>
-              </div>
-              <h3 class="card-title">SoneEngine (自作ゲームエンジン)</h3>
-              <p class="card-desc">
-                描画パイプラインの自作とデバッグ環境（ImGui）を統合した独自のC++製ゲームエンジン。リソース管理やゲームループのアーキテクチャを設計。
-              </p>
-              <div class="card-footer">
-                <button class="btn-detail" data-target="sone-engine">
-                  <span>詳細・こだわり</span>
-                  <i class="fa-solid fa-arrow-right"></i>
-                </button>
-                <a href="https://github.com/SoneTaisei/SoneEngine" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="GitHub Repository">
-                  <i class="fa-brands fa-github"></i>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 2. PG3 -->
-          <article class="work-card" data-category="game" data-id="pg3">
-            <div class="card-thumb">
-              <div class="mock-canvas game-preview">
-                <i class="fa-solid fa-gamepad"></i>
-                <span>3D Action Game</span>
-                <span class="sub-tech">PG3 / C++</span>
-              </div>
-            </div>
-            <div class="card-content">
-              <div class="card-tags">
-                <span class="tag">C++</span>
-                <span class="tag">3D Gameplay</span>
-                <span class="tag">DirectX</span>
-              </div>
-              <h3 class="card-title">3Dゲーム制作実習 (PG3)</h3>
-              <p class="card-desc">
-                C++を用いた3Dアクションゲーム制作。3D空間でのプレイヤー挙動、カメラ制御、当たり判定およびエフェクト演出の実装。
-              </p>
-              <div class="card-footer">
-                <button class="btn-detail" data-target="pg3">
-                  <span>詳細・こだわり</span>
-                  <i class="fa-solid fa-arrow-right"></i>
-                </button>
-                <a href="https://github.com/SoneTaisei/PG3" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="GitHub Repository">
-                  <i class="fa-brands fa-github"></i>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 3. MT4 (Shader) -->
-          <article class="work-card" data-category="engine" data-id="mt4">
-            <div class="card-thumb">
-              <div class="mock-canvas shader-preview">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
-                <span>HLSL Shaders</span>
-                <span class="sub-tech">MT4 / HLSL</span>
-              </div>
-            </div>
-            <div class="card-content">
-              <div class="card-tags">
-                <span class="tag">HLSL</span>
-                <span class="tag">Shader</span>
-                <span class="tag">Graphics</span>
-              </div>
-              <h3 class="card-title">HLSL シェーダー &amp; 描画研究 (MT4)</h3>
-              <p class="card-desc">
-                頂点シェーダー・ピクセルシェーダーによるグラフィックス表現。ライティングモデルの実装やポストプロセスの基礎を研究。
-              </p>
-              <div class="card-footer">
-                <button class="btn-detail" data-target="mt4">
-                  <span>詳細・こだわり</span>
-                  <i class="fa-solid fa-arrow-right"></i>
-                </button>
-                <a href="https://github.com/SoneTaisei/MT4" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="GitHub Repository">
-                  <i class="fa-brands fa-github"></i>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 4. AL4 -->
-          <article class="work-card" data-category="game" data-id="al4">
-            <div class="card-thumb">
-              <div class="mock-canvas game-preview">
-                <i class="fa-solid fa-shield-halved"></i>
-                <span>Game Logic &amp; AI</span>
-                <span class="sub-tech">AL4 / C++</span>
-              </div>
-            </div>
-            <div class="card-content">
-              <div class="card-tags">
-                <span class="tag">C++</span>
-                <span class="tag">Algorithm</span>
-                <span class="tag">State Pattern</span>
-              </div>
-              <h3 class="card-title">ゲームアルゴリズム開発 (AL4)</h3>
-              <p class="card-desc">
-                ステートパターンを用いた敵キャラクターのAIや行動制御、シーン遷移管理など、堅牢なゲームロジック構造の構築。
-              </p>
-              <div class="card-footer">
-                <button class="btn-detail" data-target="al4">
-                  <span>詳細・こだわり</span>
-                  <i class="fa-solid fa-arrow-right"></i>
-                </button>
-                <a href="https://github.com/SoneTaisei/AL4" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="GitHub Repository">
-                  <i class="fa-brands fa-github"></i>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 5. 00_01_ExtendedTo3D / MT3 (3D Math) -->
-          <article class="work-card" data-category="engine" data-id="math-3d">
-            <div class="card-thumb">
-              <div class="mock-canvas math-preview">
-                <i class="fa-solid fa-compass-drafting"></i>
-                <span>3D Math Library</span>
-                <span class="sub-tech">Matrix / Vector</span>
-              </div>
-            </div>
-            <div class="card-content">
-              <div class="card-tags">
-                <span class="tag">C++</span>
-                <span class="tag">3D Math</span>
-                <span class="tag">Geometry</span>
-              </div>
-              <h3 class="card-title">3D幾何・行列演算ライブラリ (ExtendedTo3D)</h3>
-              <p class="card-desc">
-                4x4同次変換行列、外積・内積計算、OBB/AABB衝突判定など、ゲームエンジンを支える基礎数学クラス群の実装。
-              </p>
-              <div class="card-footer">
-                <button class="btn-detail" data-target="math-3d">
-                  <span>詳細・こだわり</span>
-                  <i class="fa-solid fa-arrow-right"></i>
-                </button>
-                <a href="https://github.com/SoneTaisei/00_01_ExtendedTo3D" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="GitHub Repository">
-                  <i class="fa-brands fa-github"></i>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 6. TD2_L2_1 (Gameplay & Level) -->
-          <article class="work-card" data-category="game" data-id="td2">
-            <div class="card-thumb">
-              <div class="mock-canvas game-preview">
-                <i class="fa-solid fa-crosshairs"></i>
-                <span>Action &amp; Mechanics</span>
-                <span class="sub-tech">TD2 / C++</span>
-              </div>
-            </div>
-            <div class="card-content">
-              <div class="card-tags">
-                <span class="tag">C++</span>
-                <span class="tag">Game System</span>
-                <span class="tag">Level Design</span>
-              </div>
-              <h3 class="card-title">アクションゲーム開発 (TD2)</h3>
-              <p class="card-desc">
-                プレイヤーの爽快感を重視したレスポンスのチューニング、マップ上の障害物ギミック、スコアおよびクリア判定ロジックの実装。
-              </p>
-              <div class="card-footer">
-                <button class="btn-detail" data-target="td2">
-                  <span>詳細・こだわり</span>
-                  <i class="fa-solid fa-arrow-right"></i>
-                </button>
-                <a href="https://github.com/SoneTaisei/TD2_L2_1" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="GitHub Repository">
-                  <i class="fa-brands fa-github"></i>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 7. Unity (TR1_2_Unity) -->
-          <article class="work-card" data-category="unity-tools" data-id="unity-project">
-            <div class="card-thumb">
-              <div class="mock-canvas unity-preview">
-                <i class="fa-brands fa-unity"></i>
-                <span>Unity Game</span>
-                <span class="sub-tech">C# / Physics</span>
-              </div>
-            </div>
-            <div class="card-content">
-              <div class="card-tags">
-                <span class="tag">Unity</span>
-                <span class="tag">C#</span>
-                <span class="tag">Component</span>
-              </div>
-              <h3 class="card-title">Unity プロジェクト制作 (TR1_2_Unity)</h3>
-              <p class="card-desc">
-                UnityエンジンとC#によるゲーム制作。コンポーネント指向に基づいたオブジェクト設計と物理挙動を活用したゲームプレイ構築。
-              </p>
-              <div class="card-footer">
-                <button class="btn-detail" data-target="unity-project">
-                  <span>詳細・こだわり</span>
-                  <i class="fa-solid fa-arrow-right"></i>
-                </button>
-                <a href="https://github.com/SoneTaisei/TR1_2_Unity" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="GitHub Repository">
-                  <i class="fa-brands fa-github"></i>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- 8. TL1 (Tooling & Automation) -->
-          <article class="work-card" data-category="unity-tools" data-id="tl1-tool">
-            <div class="card-thumb">
-              <div class="mock-canvas tool-preview">
-                <i class="fa-solid fa-terminal"></i>
-                <span>Dev Tooling</span>
-                <span class="sub-tech">TL1 / Automation</span>
-              </div>
-            </div>
-            <div class="card-content">
-              <div class="card-tags">
-                <span class="tag">Batch</span>
-                <span class="tag">Automation</span>
-                <span class="tag">Tooling</span>
-              </div>
-              <h3 class="card-title">開発自動化スクリプト &amp; ツール (TL1)</h3>
-              <p class="card-desc">
-                日々のビルドフローやファイル管理を効率化するスクリプト群。ゲーム開発を円滑に進めるための環境整備への取り組み。
-              </p>
-              <div class="card-footer">
-                <button class="btn-detail" data-target="tl1-tool">
-                  <span>詳細・こだわり</span>
-                  <i class="fa-solid fa-arrow-right"></i>
-                </button>
-                <a href="https://github.com/SoneTaisei/TL1" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="GitHub Repository">
-                  <i class="fa-brands fa-github"></i>
-                </a>
-              </div>
-            </div>
-          </article>
-
+          <!-- JavaScriptにより自動生成されます -->
         </div>
       </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- お問い合わせセクション -->
     <section id="contact" class="section contact-section">
       <div class="container contact-container">
         <div class="section-header center">
-          <span class="section-tag">// 04. GET IN TOUCH</span>
-          <h2 class="section-title">お問い合わせ / リンク</h2>
+          <span class="section-tag">// 04. お問い合わせ</span>
+          <h2 class="section-title">お問い合わせ / 各種リンク</h2>
           <p class="section-subtitle">
             作品のソースコード閲覧やフィードバック、連絡はこちらからお願いいたします。
           </p>
@@ -581,38 +332,39 @@
             <a href="https://github.com/SoneTaisei" target="_blank" rel="noopener noreferrer" class="contact-btn">
               <i class="fa-brands fa-github"></i>
               <div class="btn-text">
-                <span class="main-text">GitHub Profile</span>
+                <span class="main-text">GitHub プロフィール</span>
                 <span class="sub-text">@SoneTaisei</span>
               </div>
             </a>
           </div>
           <p class="contact-note">
-            ※学校の就職用メールアドレスやX（旧Twitter）等のリンクもここに追加可能です。
+            ※就職活動用のメールアドレスやSNSなどのリンクもここに追加可能です。
           </p>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Modal for Project Details -->
+  <!-- 作品詳細モーダルウィンドウ -->
   <div class="modal-overlay" id="project-modal" aria-hidden="true" role="dialog">
     <div class="modal-dialog">
-      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close dialog">&times;</button>
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="モーダルを閉じる">&times;</button>
       <div class="modal-content" id="modal-content">
-        <!-- Injected via JavaScript -->
+        <!-- JavaScriptにより注入されます -->
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
+  <!-- フッター -->
   <footer class="footer">
     <div class="container footer-content">
-      <p>&copy; 2026 Taisei Sone. All Rights Reserved.</p>
-      <p class="footer-sub">Designed &amp; Developed with Modern Web Standards.</p>
+      <p>&copy; 2026 曽根 大成 (Taisei Sone). All Rights Reserved.</p>
+      <p class="footer-sub">ゲームプログラマー ポートフォリオ</p>
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- 外部データおよびスクリプト -->
+  <script src="projects-data.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
