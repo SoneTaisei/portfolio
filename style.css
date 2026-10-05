@@ -1,36 +1,42 @@
 /* ==========================================================================
-   Base & CSS Variables (Bright, Clean & Warm Light Palette)
+   Base & CSS Variables (Bright, Warm & Energetic Light Palette)
    ========================================================================== */
 :root {
-  /* 明るく清潔感のある背景色（目に優しい上質なオフホワイト） */
-  --bg-base: #f8fafc;            /* わずかに青みを含んだ明るいスレートホワイト */
+  /* 明るく温かみのある背景色（目に優しい上質なオフホワイト） */
+  --bg-base: #fafaf9;            /* わずかに温もりを含んだウォームスレート */
   --bg-surface: #ffffff;         /* カードやパネルの純白 */
   --bg-surface-elevated: #ffffff;
-  --bg-subtle: #f1f5f9;          /* 淡いグレー（タグやプレビュー領域） */
-  --bg-subtle-hover: #e2e8f0;
+  --bg-subtle: #f4f4f5;          /* 淡いグレー（タグやプレビュー領域） */
+  --bg-subtle-hover: #e4e4e7;
 
-  /* 親しみやすく洗練されたアクセントカラー */
-  --accent-primary: #2563eb;       /* 信頼感のあるクリアなブルー */
-  --accent-primary-hover: #1d4ed8;
-  --accent-primary-soft: #eff6ff;  /* ブルーの薄い背景色 */
+  /* アクセントカラー（爽やかなブルー × 温かみのあるオレンジの調和） */
+  --accent-primary: #ea580c;       /* エネルギッシュで温かいサンセットオレンジ */
+  --accent-primary-hover: #c2410c;
+  --accent-primary-soft: #fff7ed;  /* オレンジの淡い背景 */
+  --accent-primary-border: #fed7aa;/* オレンジの柔らかな枠線 */
+
+  --accent-blue: #2563eb;          /* 知的で誠実なロイヤルブルー */
+  --accent-blue-soft: #eff6ff;     /* ブルーの淡い背景 */
+  --accent-blue-border: #bfdbfe;
+
   --accent-secondary: #059669;     /* 活気・ステータスを示すエメラルドグリーン */
   --accent-secondary-soft: #ecfdf5;
-  --accent-warm: #d97706;          /* 看板・注目を示す温かみのあるアンバー */
-  --accent-warm-soft: #fffbeb;
 
   /* コントラストを整えた読みやすいテキスト色 */
-  --text-main: #0f172a;          /* 濃いスレート（真っ黒ではないので柔らかい） */
-  --text-muted: #475569;         /* 読みやすいミディアムグレー */
-  --text-dim: #94a3b8;           /* 控えめなラベル用グレー */
+  --text-main: #18181b;          /* 引き締まったダークトーン */
+  --text-muted: #52525b;         /* 読みやすいミディアムグレー */
+  --text-dim: #a1a1aa;           /* 控えめなラベル用グレー */
 
   /* 繊細で自然なボーダーとシャドウ */
-  --border-default: #e2e8f0;
-  --border-subtle: #f1f5f9;
-  --border-active: #2563eb;
+  --border-default: #e4e4e7;
+  --border-subtle: #f4f4f5;
+  --border-orange: #fed7aa;
+  --border-active: #ea580c;
 
-  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
-  --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
-  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.1), 0 2px 6px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px rgba(24, 24, 27, 0.05);
+  --shadow-md: 0 4px 16px rgba(24, 24, 27, 0.06), 0 1px 2px rgba(24, 24, 27, 0.04);
+  --shadow-lg: 0 12px 32px rgba(24, 24, 27, 0.09), 0 2px 6px rgba(24, 24, 27, 0.04);
+  --shadow-orange: 0 4px 14px rgba(234, 88, 12, 0.25);
 
   --font-sans: 'Outfit', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: 'Fira Code', Consolas, monospace;
@@ -62,7 +68,7 @@ body {
   line-height: 1.75;
   overflow-x: hidden;
   /* 爽やかで控えめなドットマトリクス背景 */
-  background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px);
+  background-image: radial-gradient(#d4d4d8 1.2px, transparent 1.2px);
   background-size: 28px 28px;
   background-position: -14px -14px;
   min-height: 100vh;
@@ -83,12 +89,12 @@ a:hover {
 code {
   font-family: var(--font-mono);
   font-size: 0.9em;
-  background: var(--bg-subtle);
+  background: var(--accent-primary-soft);
   padding: 2px 6px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border-default);
-  color: #1e40af;
-  font-weight: 500;
+  border: 1px solid var(--accent-primary-border);
+  color: #c2410c;
+  font-weight: 600;
 }
 
 .container {
@@ -105,7 +111,7 @@ code {
   position: sticky;
   top: 0;
   height: var(--nav-height);
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-default);
@@ -132,18 +138,19 @@ code {
 }
 
 .nav-brand-avatar {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 8px;
-  background: var(--accent-primary-soft);
-  border: 1px solid #bfdbfe;
+  background: linear-gradient(135deg, #ea580c, #f97316);
+  border: 1px solid #fdba74;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.9rem;
-  color: var(--accent-primary);
-  font-weight: 700;
+  color: #ffffff;
+  font-weight: 800;
   font-family: var(--font-mono);
+  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.25);
 }
 
 .nav-brand-name {
@@ -181,7 +188,7 @@ code {
 }
 
 .nav-link.active {
-  font-weight: 600;
+  font-weight: 700;
   border-bottom: 2px solid var(--accent-primary);
 }
 
@@ -202,8 +209,9 @@ code {
 }
 
 .nav-github-link:hover {
-  background: var(--bg-subtle);
-  border-color: #cbd5e1;
+  background: var(--accent-primary-soft);
+  border-color: var(--accent-primary-border);
+  color: var(--accent-primary);
   text-decoration: none;
 }
 
@@ -226,12 +234,14 @@ code {
 }
 
 /* ==========================================================================
-   ヒーローセクション（明るく親しみやすい2カラム）
+   ヒーローセクション（オレンジ × ブルーの温かみと活力）
    ========================================================================== */
 .hero-section {
-  padding: 70px 0 60px;
+  padding: 75px 0 65px;
   border-bottom: 1px solid var(--border-default);
-  background: linear-gradient(180deg, rgba(239, 246, 255, 0.4) 0%, rgba(248, 250, 252, 0) 100%);
+  /* ほんのり温かいオレンジと淡いブルーのグラデーション */
+  background: radial-gradient(circle at 10% 20%, rgba(255, 237, 213, 0.45) 0%, transparent 45%),
+              radial-gradient(circle at 90% 80%, rgba(219, 234, 254, 0.4) 0%, transparent 45%);
 }
 
 .hero-layout {
@@ -245,12 +255,12 @@ code {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--accent-secondary-soft);
-  border: 1px solid #a7f3d0;
+  background: var(--accent-primary-soft);
+  border: 1px solid var(--accent-primary-border);
   padding: 6px 14px;
   border-radius: 999px;
   font-size: 0.85rem;
-  color: #065f46;
+  color: #c2410c;
   font-weight: 600;
   margin-bottom: 20px;
 }
@@ -258,9 +268,10 @@ code {
 .status-dot {
   width: 8px;
   height: 8px;
-  background-color: var(--accent-secondary);
+  background-color: #f97316;
   border-radius: 50%;
   display: inline-block;
+  box-shadow: 0 0 6px rgba(249, 115, 22, 0.6);
 }
 
 .hero-heading {
@@ -273,7 +284,10 @@ code {
 }
 
 .hero-heading .accent-text {
-  color: var(--accent-primary);
+  background: linear-gradient(135deg, #ea580c 0%, #f97316 60%, #eab308 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
 .hero-lead {
@@ -308,14 +322,15 @@ code {
 }
 
 .btn-primary {
-  background-color: var(--accent-primary);
+  background: linear-gradient(135deg, #ea580c, #f97316);
   color: #ffffff;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+  box-shadow: var(--shadow-orange);
+  border: none;
 }
 
 .btn-primary:hover {
-  background-color: var(--accent-primary-hover);
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+  background: linear-gradient(135deg, #c2410c, #ea580c);
+  box-shadow: 0 6px 18px rgba(234, 88, 12, 0.35);
   transform: translateY(-1px);
 }
 
@@ -327,51 +342,63 @@ code {
 }
 
 .btn-secondary:hover {
-  background-color: var(--bg-subtle);
-  border-color: #cbd5e1;
+  background-color: var(--accent-primary-soft);
+  border-color: var(--accent-primary-border);
+  color: var(--accent-primary);
 }
 
 /* ヒーロー右側：看板プロジェクト（SoneEngine）カード */
 .hero-featured-card {
   background: var(--bg-surface);
-  border: 1px solid var(--border-default);
+  border: 1px solid var(--accent-primary-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
   overflow: hidden;
+  position: relative;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-featured-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #ea580c, #f97316, #3b82f6);
 }
 
 .hero-featured-card:hover {
   box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
 }
 
 .card-topbar {
-  background: #f8fafc;
+  background: #fff7ed;
   padding: 12px 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--border-default);
+  border-bottom: 1px solid var(--accent-primary-border);
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: var(--text-muted);
 }
 
 .card-topbar-left {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--accent-primary);
 }
 
 .card-topbar-badge {
-  background: var(--accent-warm-soft);
-  color: #92400e;
-  border: 1px solid #fde68a;
+  background: #ea580c;
+  color: #ffffff;
   padding: 2px 8px;
   border-radius: var(--radius-sm);
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 0.75rem;
 }
 
 .featured-card-body {
@@ -380,7 +407,7 @@ code {
 
 .featured-card-title {
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: 800;
   margin-bottom: 10px;
   color: var(--text-main);
 }
@@ -404,10 +431,10 @@ code {
   font-size: 0.75rem;
   background: var(--bg-subtle);
   border: 1px solid var(--border-default);
-  color: #334155;
+  color: #27272a;
   padding: 4px 10px;
   border-radius: var(--radius-sm);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .featured-card-footer {
@@ -436,9 +463,13 @@ code {
   color: var(--accent-primary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  display: block;
-  font-weight: 600;
+  display: inline-block;
+  font-weight: 700;
   margin-bottom: 8px;
+  background: var(--accent-primary-soft);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--accent-primary-border);
 }
 
 .section-title {
@@ -469,6 +500,7 @@ code {
   border-radius: var(--radius-md);
   padding: 36px;
   box-shadow: var(--shadow-sm);
+  position: relative;
 }
 
 .about-name-block {
@@ -515,18 +547,21 @@ code {
 }
 
 .philosophy-card {
-  background: #f8fafc;
+  background: #fafaf9;
   border: 1px solid var(--border-default);
+  border-left: 3px solid var(--accent-primary);
   border-radius: var(--radius-sm);
   padding: 18px 20px;
   display: flex;
   gap: 18px;
   align-items: flex-start;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .philosophy-card:hover {
-  background: #f1f5f9;
+  background: #fff7ed;
+  border-color: var(--accent-primary-border);
+  border-left-color: var(--accent-primary);
 }
 
 .philosophy-icon {
@@ -619,12 +654,13 @@ code {
   border-radius: var(--radius-md);
   padding: 28px;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .skill-box:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
+  border-color: var(--accent-primary-border);
 }
 
 .skill-box-header {
@@ -640,8 +676,9 @@ code {
   font-size: 1.3rem;
   color: var(--accent-primary);
   background: var(--accent-primary-soft);
-  width: 38px;
-  height: 38px;
+  border: 1px solid var(--accent-primary-border);
+  width: 40px;
+  height: 40px;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -677,12 +714,12 @@ code {
 .skill-badge {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: #475569;
+  color: #52525b;
   background: var(--bg-subtle);
   border: 1px solid var(--border-default);
   padding: 2px 8px;
   border-radius: var(--radius-sm);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .skill-desc {
@@ -716,14 +753,16 @@ code {
 }
 
 .filter-tab:hover {
-  background: var(--bg-subtle);
-  color: var(--text-main);
+  background: var(--accent-primary-soft);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary-border);
 }
 
 .filter-tab.active {
-  background: var(--accent-primary);
-  border-color: var(--accent-primary);
+  background: linear-gradient(135deg, #ea580c, #f97316);
+  border-color: #ea580c;
   color: #ffffff;
+  box-shadow: var(--shadow-orange);
 }
 
 .works-grid {
@@ -746,12 +785,12 @@ code {
 .work-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
-  border-color: #cbd5e1;
+  border-color: var(--accent-primary-border);
 }
 
 .card-header-visual {
   height: 160px;
-  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  background: linear-gradient(135deg, #fafaf9 0%, #f4f4f5 100%);
   border-bottom: 1px solid var(--border-default);
   display: flex;
   flex-direction: column;
@@ -770,7 +809,11 @@ code {
 
 .card-visual-icon {
   font-size: 2.2rem;
-  color: var(--accent-primary);
+  transition: transform 0.2s ease;
+}
+
+.work-card:hover .card-visual-icon {
+  transform: scale(1.1);
 }
 
 .card-visual-title {
@@ -789,14 +832,14 @@ code {
   position: absolute;
   top: 12px;
   left: 12px;
-  background: var(--accent-warm);
+  background: linear-gradient(135deg, #ea580c, #f97316);
   color: #ffffff;
   font-size: 0.7rem;
   font-weight: 700;
   padding: 2px 8px;
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(234, 88, 12, 0.3);
 }
 
 .card-body {
@@ -818,10 +861,10 @@ code {
   font-size: 0.75rem;
   background: var(--bg-subtle);
   border: 1px solid var(--border-default);
-  color: #334155;
+  color: #3f3f46;
   padding: 2px 7px;
   border-radius: var(--radius-sm);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .card-title {
@@ -859,11 +902,12 @@ code {
   gap: 6px;
   padding: 4px 0;
   font-family: var(--font-sans);
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, gap 0.2s ease;
 }
 
 .btn-open-detail:hover {
   color: var(--accent-primary-hover);
+  gap: 9px;
   text-decoration: underline;
 }
 
@@ -875,7 +919,7 @@ code {
 }
 
 .link-repo-icon:hover {
-  color: var(--text-main);
+  color: var(--accent-primary);
   text-decoration: none;
 }
 
@@ -884,18 +928,29 @@ code {
    ========================================================================== */
 .contact-section {
   border-bottom: none;
-  background: linear-gradient(180deg, rgba(248, 250, 252, 0) 0%, rgba(239, 246, 255, 0.5) 100%);
+  background: linear-gradient(180deg, rgba(250, 250, 249, 0) 0%, rgba(255, 237, 213, 0.4) 100%);
 }
 
 .contact-card {
   background: var(--bg-surface);
-  border: 1px solid var(--border-default);
+  border: 1px solid var(--accent-primary-border);
   border-radius: var(--radius-md);
   padding: 48px 36px;
   max-width: 680px;
   margin: 0 auto;
   text-align: center;
   box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #ea580c, #f97316);
 }
 
 .contact-lead {
@@ -917,7 +972,7 @@ code {
   align-items: center;
   gap: 12px;
   background: var(--bg-surface);
-  border: 1px solid var(--border-default);
+  border: 1px solid var(--accent-primary-border);
   padding: 12px 28px;
   border-radius: var(--radius-sm);
   color: var(--text-main);
@@ -928,8 +983,9 @@ code {
 }
 
 .contact-card-btn:hover {
-  background: var(--bg-subtle);
-  border-color: #cbd5e1;
+  background: var(--accent-primary-soft);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
   text-decoration: none;
 }
 
@@ -944,7 +1000,7 @@ code {
 }
 
 /* ==========================================================================
-   モーダルウィンドウ (ライトテーマ)
+   モーダルウィンドウ
    ========================================================================== */
 .modal-overlay {
   position: fixed;
@@ -952,7 +1008,7 @@ code {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(15, 23, 42, 0.45);
+  background: rgba(24, 24, 27, 0.5);
   backdrop-filter: blur(4px);
   z-index: 1000;
   display: flex;
@@ -1007,8 +1063,9 @@ code {
 }
 
 .modal-close-btn:hover {
-  background: var(--bg-subtle-hover);
-  color: var(--text-main);
+  background: var(--accent-primary-soft);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary-border);
 }
 
 .modal-content {
@@ -1075,8 +1132,8 @@ code {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
-  background: #f8fafc;
-  border: 1px solid var(--border-default);
+  background: #fff7ed;
+  border: 1px solid var(--accent-primary-border);
   padding: 16px 20px;
   border-radius: var(--radius-sm);
 }
@@ -1090,8 +1147,8 @@ code {
 .meta-label {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: var(--text-dim);
-  font-weight: 600;
+  color: #c2410c;
+  font-weight: 700;
 }
 
 .meta-value {
@@ -1124,13 +1181,13 @@ code {
 }
 
 .modal-code-snippet {
-  background: #0f172a;
-  border: 1px solid #1e293b;
+  background: #18181b;
+  border: 1px solid #27272a;
   padding: 18px;
   border-radius: var(--radius-sm);
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  color: #93c5fd;
+  color: #fdba74;
   overflow-x: auto;
   line-height: 1.6;
 }

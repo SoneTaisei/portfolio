@@ -16,7 +16,7 @@ const PORTFOLIO_PROJECTS = [
     repoUrl: "https://github.com/SoneTaisei/SoneEngine",
     image: "", // 画像がある場合は "assets/images/sone-engine.png" のように指定
     icon: "fa-solid fa-cubes",
-    iconColor: "#0284c7",
+    iconColor: "#ea580c",
     tags: ["C++", "DirectX", "Dear ImGui", "自作エンジン"],
     shortDesc: "DirectXを用いた描画パイプラインの構築と、ImGuiによるデバッグ・開発ツールを統合した独自のC++製ゲームエンジンです。",
     details: {
