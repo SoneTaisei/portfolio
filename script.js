@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderWorks();
   initCategoryFilter();
   initProjectModals();
+  initCardHoverVideo();
   initWikiToc();
 });
 
@@ -47,7 +48,7 @@ function renderWorks() {
           ${item.youtubeId ? `
             <div class="card-video-badge">
               <i class="fa-brands fa-youtube card-video-icon"></i>
-              <span>動画あり</span>
+              <span class="card-video-badge-text">動画あり</span>
             </div>
           ` : ''}
           ${item.repoUrl ? `
@@ -75,7 +76,7 @@ function renderWorks() {
     }
 
     return `
-      <article class="work-card" data-category="${item.category}" data-grade="${getProjectGrade(item)}" data-id="${item.id}" role="button" tabindex="0" aria-label="${escapeHtml(item.title)}の詳細を見る">
+      <article class="work-card" data-category="${item.category}" data-grade="${getProjectGrade(item)}" data-id="${item.id}" data-youtube-id="${item.youtubeId || ''}" role="button" tabindex="0" aria-label="${escapeHtml(item.title)}の詳細を見る">
         <div class="card-header-visual">
           ${item.featured ? '<span class="card-featured-badge">看板作品</span>' : ''}
           ${visualHtml}
@@ -121,6 +122,9 @@ function initCategoryFilter() {
 
   tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
+      if (typeof stopHoverVideo === 'function') {
+        stopHoverVideo();
+      }
       tabs.forEach((t) => t.classList.remove('active'));
       tab.classList.add('active');
 
@@ -158,6 +162,9 @@ function initProjectModals() {
   const closeBtn = document.getElementById('modal-close-btn');
 
   function openModal(id) {
+    if (typeof stopHoverVideo === 'function') {
+      stopHoverVideo();
+    }
     if (typeof PORTFOLIO_PROJECTS === 'undefined') return;
     const data = PORTFOLIO_PROJECTS.find((p) => p.id === id);
     if (!data) return;
@@ -353,7 +360,170 @@ function escapeHtml(str) {
 }
 
 /* ==========================================================================
-   4. Wikipedia風 右側固定目次 (表示/非表示トグル & スムーズスクロール & ハイライト)
+   4. 作品カードのホバー動画自動プレビュー制御
+   ========================================================================== */
+let activeHoverCard = null;
+let hoverTimer = null;
+
+function stopHoverVideo() {
+  if (hoverTimer) {
+    clearTimeout(hoverTimer);
+    hoverTimer = null;
+  }
+  if (!activeHoverCard) return;
+
+  const card = activeHoverCard;
+  activeHoverCard = null;
+
+  // プレビューコンテナを削除
+  const preview = card.querySelector('.card-hover-preview');
+  if (preview) {
+    preview.remove();
+  }
+
+  // バッジを通常状態に戻す
+  const badge = card.querySelector('.card-video-badge');
+  if (badge) {
+    badge.classList.remove('is-playing');
+    const badgeText = badge.querySelector('.card-video-badge-text');
+    const badgeIcon = badge.querySelector('.card-video-icon');
+    if (badgeText) badgeText.textContent = '動画あり';
+    if (badgeIcon) badgeIcon.className = 'fa-brands fa-youtube card-video-icon';
+  }
+}
+
+function startHoverVideo(card) {
+  const youtubeId = card.dataset.youtubeId;
+  if (!youtubeId) return;
+
+  // 既に別のカードが再生中なら停止
+  if (activeHoverCard && activeHoverCard !== card) {
+    stopHoverVideo();
+  }
+
+  const wrapper = card.querySelector('.card-img-wrapper');
+  if (!wrapper) return;
+
+  // 既にこのカードでプレビューがあれば終了
+  if (card.querySelector('.card-hover-preview')) return;
+
+  activeHoverCard = card;
+
+  // プレビューコンテナ生成
+  const preview = document.createElement('div');
+  preview.className = 'card-hover-preview';
+
+  // YouTube埋め込み (自動再生・ミュート・ループ・コントロール非表示)
+  const embedUrl = `https://www.youtube.com/embed/${encodeURIComponent(youtubeId)}?autoplay=1&mute=1&controls=0&loop=1&playlist=${encodeURIComponent(youtubeId)}&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1`;
+
+  preview.innerHTML = `
+    <iframe 
+      src="${embedUrl}" 
+      title="プレビュー動画" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      referrerpolicy="strict-origin-when-cross-origin" 
+      tabindex="-1">
+    </iframe>
+  `;
+
+  wrapper.appendChild(preview);
+
+  // フェードイン表示
+  requestAnimationFrame(() => {
+    preview.classList.add('is-active');
+  });
+
+  // バッジを「再生中」表示に変更
+  const badge = card.querySelector('.card-video-badge');
+  if (badge) {
+    badge.classList.add('is-playing');
+    const badgeText = badge.querySelector('.card-video-badge-text');
+    const badgeIcon = badge.querySelector('.card-video-icon');
+    if (badgeText) badgeText.textContent = '再生中';
+    if (badgeIcon) badgeIcon.className = 'fa-solid fa-circle-play card-video-icon playing-pulse';
+  }
+}
+
+function initCardHoverVideo() {
+  const worksGrid = document.getElementById('works-grid');
+  if (!worksGrid) return;
+
+  // マウスホバー検知 (委譲)
+  worksGrid.addEventListener('mouseover', (e) => {
+    const card = e.target.closest('.work-card');
+    if (!card) return;
+
+    // カード内部の子要素同士の移動は無視
+    if (e.relatedTarget && card.contains(e.relatedTarget)) {
+      return;
+    }
+
+    // すでにこのカードがアクティブなら何もしない
+    if (activeHoverCard === card) return;
+
+    // 他のタイマーがあればキャンセル
+    if (hoverTimer) {
+      clearTimeout(hoverTimer);
+      hoverTimer = null;
+    }
+
+    // 他のカードが再生中なら即座に停止
+    if (activeHoverCard && activeHoverCard !== card) {
+      stopHoverVideo();
+    }
+
+    // 動画IDがないカード（自作エンジンなど）はスキップ
+    if (!card.dataset.youtubeId) return;
+
+    // わずかな遅延（約180ms）を設け、素早く通過しただけの誤爆通信を防ぐ
+    hoverTimer = setTimeout(() => {
+      startHoverVideo(card);
+    }, 180);
+  });
+
+  // マウス離脱検知
+  worksGrid.addEventListener('mouseout', (e) => {
+    const card = e.target.closest('.work-card');
+    if (!card) return;
+
+    // カード内部の子要素への移動であれば無視
+    if (e.relatedTarget && card.contains(e.relatedTarget)) {
+      return;
+    }
+
+    // カードから完全に外れた
+    if (hoverTimer) {
+      clearTimeout(hoverTimer);
+      hoverTimer = null;
+    }
+
+    if (activeHoverCard === card) {
+      stopHoverVideo();
+    }
+  });
+
+  // ウィンドウ全体のスクロール時に停止
+  window.addEventListener('scroll', () => {
+    if (hoverTimer) {
+      clearTimeout(hoverTimer);
+      hoverTimer = null;
+    }
+    if (activeHoverCard) {
+      stopHoverVideo();
+    }
+  }, { passive: true });
+
+  // タブが非アクティブになった時に停止
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopHoverVideo();
+    }
+  });
+}
+
+/* ==========================================================================
+   5. Wikipedia風 右側固定目次 (表示/非表示トグル & スムーズスクロール & ハイライト)
    ========================================================================== */
 function initWikiToc() {
   const toc = document.getElementById('wiki-toc');
