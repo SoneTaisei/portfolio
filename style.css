@@ -176,23 +176,42 @@ code {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--text-main);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-default);
-  padding: 7px 16px;
+  background: #18181b;
+  color: #ffffff;
+  border: 1px solid #27272a;
+  padding: 8px 16px;
   border-radius: var(--radius-sm);
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
+  font-family: var(--font-mono);
   text-decoration: none;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-github-link:hover {
-  background: var(--accent-primary-soft);
-  border-color: var(--accent-primary-border);
-  color: var(--accent-primary);
+  background: #000000;
+  color: #38bdf8;
+  border-color: #38bdf8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
   text-decoration: none;
+}
+
+.nav-github-link .nav-ext-icon {
+  font-size: 0.72rem;
+  opacity: 0.8;
+  transition: transform 0.2s ease;
+}
+
+.nav-github-link:hover .nav-ext-icon {
+  transform: translate(2px, -2px);
+}
+
+.nav-engine-link:hover {
+  color: #fb923c;
+  border-color: #fb923c;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35);
 }
 
 /* ==========================================================================
@@ -592,7 +611,7 @@ section[id],
 
 .featured-card-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   padding-top: 18px;
   border-top: 1px solid var(--border-default);
@@ -792,6 +811,26 @@ section[id],
   font-weight: 500;
 }
 
+.profile-github-link {
+  color: var(--accent-primary);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.profile-github-link:hover {
+  color: var(--accent-primary-hover);
+  text-decoration: underline;
+}
+
+.profile-github-link i {
+  font-size: 0.72rem;
+  opacity: 0.8;
+}
+
 /* ==========================================================================
    スキルセクション
    ========================================================================== */
@@ -980,7 +1019,7 @@ section[id],
 .card-video-badge {
   position: absolute;
   bottom: 8px;
-  right: 8px;
+  left: 8px;
   background: rgba(220, 38, 38, 0.92);
   color: #ffffff;
   font-size: 0.72rem;
@@ -993,6 +1032,7 @@ section[id],
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(2px);
   font-family: var(--font-sans);
+  z-index: 2;
 }
 
 .card-video-icon {
@@ -1003,8 +1043,8 @@ section[id],
   position: absolute;
   bottom: 8px;
   right: 8px;
-  background: rgba(24, 24, 27, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   color: #ffffff;
   font-size: 0.75rem;
   font-weight: 700;
@@ -1017,21 +1057,32 @@ section[id],
   backdrop-filter: blur(3px);
   font-family: var(--font-mono);
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 2;
+  cursor: pointer;
 }
 
 .card-git-badge:hover {
   background: #000000;
-  color: #ffffff;
+  color: #38bdf8;
+  border-color: #38bdf8;
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
   text-decoration: none;
 }
 
 .card-git-icon {
   font-size: 0.92rem;
+}
+
+.badge-ext-icon {
+  font-size: 0.65rem;
+  opacity: 0.8;
+  transition: transform 0.2s ease;
+}
+
+.card-git-badge:hover .badge-ext-icon {
+  transform: translate(1px, -1px);
 }
 
 .card-visual-icon {
@@ -1282,7 +1333,72 @@ section[id],
 .card-links-group {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.card-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  line-height: 1.2;
+}
+
+.card-action-github {
+  background: #18181b;
+  color: #ffffff;
+  border: 1px solid #27272a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.card-action-github:hover {
+  background: #000000;
+  color: #38bdf8;
+  border-color: #38bdf8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+}
+
+.card-action-github .action-ext-icon {
+  font-size: 0.65rem;
+  opacity: 0.8;
+  transition: transform 0.2s ease;
+}
+
+.card-action-github:hover .action-ext-icon {
+  transform: translate(1px, -1px);
+}
+
+.card-action-youtube {
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+  box-shadow: 0 1px 3px rgba(220, 38, 38, 0.1);
+}
+
+.card-action-youtube:hover {
+  background: #dc2626;
+  color: #ffffff;
+  border-color: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
+  text-decoration: none;
+}
+
+.card-action-youtube .action-ext-icon {
+  font-size: 0.65rem;
+  opacity: 0.8;
 }
 
 .link-youtube-icon {
@@ -1434,26 +1550,116 @@ section[id],
   background: #fee2e2;
   border: 1px solid #fca5a5;
   color: #dc2626;
+  box-shadow: 0 1px 3px rgba(220, 38, 38, 0.15);
 }
 
 .modal-youtube-badge:hover {
   background: #dc2626;
   border-color: #dc2626;
   color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
   text-decoration: none;
 }
 
 .modal-github-badge {
-  background: var(--bg-subtle);
-  border: 1px solid var(--border-default);
-  color: var(--text-main);
+  background: #18181b;
+  border: 1px solid #27272a;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .modal-github-badge:hover {
-  background: var(--accent-primary-soft);
-  color: var(--accent-primary);
-  border-color: var(--accent-primary-border);
+  background: #000000;
+  color: #38bdf8;
+  border-color: #38bdf8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
   text-decoration: none;
+}
+
+.modal-ext-icon {
+  font-size: 0.72rem;
+  opacity: 0.85;
+  margin-left: 2px;
+}
+
+/* モーダル末尾のGitHubリポジトリCTAエリア */
+.modal-repo-cta {
+  margin-top: 32px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
+  border: 1px solid #3f3f46;
+  border-radius: var(--radius-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.modal-repo-cta-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modal-repo-cta-title {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.02rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-repo-cta-title i {
+  color: #38bdf8;
+  font-size: 1.25rem;
+}
+
+.modal-repo-cta-desc {
+  color: #d4d4d8;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.btn-modal-repo-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #38bdf8;
+  color: #0f172a;
+  font-weight: 800;
+  font-size: 0.88rem;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(56, 189, 248, 0.35);
+  cursor: pointer;
+}
+
+.btn-modal-repo-cta:hover {
+  background: #7dd3fc;
+  color: #0f172a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.55);
+  text-decoration: none;
+}
+
+@media (max-width: 640px) {
+  .modal-repo-cta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding: 18px;
+  }
+  .btn-modal-repo-cta {
+    justify-content: center;
+  }
 }
 
 .modal-repo-link {
@@ -1739,5 +1945,21 @@ section[id],
     top: 74px;
     right: 10px;
     max-height: calc(100vh - 86px);
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-brand-tag {
+    display: none;
+  }
+
+  .nav-actions {
+    gap: 6px;
+  }
+
+  .nav-github-link {
+    padding: 6px 10px;
+    font-size: 0.76rem;
+    gap: 6px;
   }
 }

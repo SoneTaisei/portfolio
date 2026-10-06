@@ -50,10 +50,11 @@ function renderWorks() {
               <span>動画あり</span>
             </div>
           ` : ''}
-          ${!item.youtubeId && item.repoUrl ? `
+          ${item.repoUrl ? `
             <a href="${item.repoUrl}" target="_blank" rel="noopener noreferrer" class="card-git-badge" title="GitHubリポジトリを見る" onclick="event.stopPropagation()">
               <i class="fa-brands fa-github card-git-icon"></i>
               <span>GitHub</span>
+              <i class="fa-solid fa-arrow-up-right-from-square badge-ext-icon"></i>
             </a>
           ` : ''}
         </div>
@@ -67,6 +68,7 @@ function renderWorks() {
           <a href="${item.repoUrl}" target="_blank" rel="noopener noreferrer" class="card-git-badge" title="GitHubリポジトリを見る" onclick="event.stopPropagation()">
             <i class="fa-brands fa-github card-git-icon"></i>
             <span>GitHub</span>
+            <i class="fa-solid fa-arrow-up-right-from-square badge-ext-icon"></i>
           </a>
         ` : ''}
       `;
@@ -91,13 +93,16 @@ function renderWorks() {
             </span>
             <div class="card-links-group">
               ${item.youtubeUrl ? `
-                <a href="${item.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="link-youtube-icon" title="YouTubeで動画を見る" onclick="event.stopPropagation()">
+                <a href="${item.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-action-youtube" title="YouTubeで動画を見る" onclick="event.stopPropagation()">
                   <i class="fa-brands fa-youtube"></i>
+                  <span>動画</span>
                 </a>
               ` : ''}
               ${item.repoUrl ? `
-                <a href="${item.repoUrl}" target="_blank" rel="noopener noreferrer" class="link-repo-icon" title="GitHubリポジトリ" onclick="event.stopPropagation()">
+                <a href="${item.repoUrl}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-action-github" title="GitHubリポジトリを見る" onclick="event.stopPropagation()">
                   <i class="fa-brands fa-github"></i>
+                  <span>GitHub</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square action-ext-icon"></i>
                 </a>
               ` : ''}
             </div>
@@ -202,12 +207,16 @@ function initProjectModals() {
         <div class="modal-header-links">
           ${data.youtubeUrl ? `
             <a href="${data.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="modal-link-badge modal-youtube-badge">
-              <i class="fa-brands fa-youtube"></i> YouTube動画
+              <i class="fa-brands fa-youtube"></i>
+              <span>YouTube動画を見る</span>
+              <i class="fa-solid fa-arrow-up-right-from-square modal-ext-icon"></i>
             </a>
           ` : ''}
           ${data.repoUrl ? `
             <a href="${data.repoUrl}" target="_blank" rel="noopener noreferrer" class="modal-link-badge modal-github-badge">
-              <i class="fa-brands fa-github"></i> GitHub
+              <i class="fa-brands fa-github"></i>
+              <span>GitHubでコードを見る</span>
+              <i class="fa-solid fa-arrow-up-right-from-square modal-ext-icon"></i>
             </a>
           ` : ''}
         </div>
@@ -248,6 +257,23 @@ function initProjectModals() {
         `
             : ''
         }
+
+        ${data.repoUrl ? `
+        <div class="modal-repo-cta">
+          <div class="modal-repo-cta-info">
+            <div class="modal-repo-cta-title">
+              <i class="fa-brands fa-github"></i>
+              <span>GitHubリポジトリで全コードを公開中</span>
+            </div>
+            <p class="modal-repo-cta-desc">設計構造、コミット履歴、実装の全コードはGitHubにて閲覧可能です。</p>
+          </div>
+          <a href="${data.repoUrl}" target="_blank" rel="noopener noreferrer" class="btn-modal-repo-cta">
+            <i class="fa-brands fa-github"></i>
+            <span>GitHubでコードを見る</span>
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+        ` : ''}
       </div>
     `;
 
