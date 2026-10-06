@@ -16,6 +16,23 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ==========================================================================
    1. 作品カードのレンダリング (projects-data.js から動的生成)
    ========================================================================== */
+function getTagClass(tag) {
+  if (tag.includes('3年次')) return 'card-tag-grade grade-3rd';
+  if (tag.includes('2年次')) return 'card-tag-grade grade-2nd';
+  if (tag.includes('1年次')) return 'card-tag-grade grade-1st';
+  if (tag === '個人開発' || tag.includes('個人開発')) return 'card-tag-grade grade-dev';
+  return '';
+}
+
+function getProjectGrade(item) {
+  const gradeTag = item.tags.find((t) => t.includes('年次') || t.includes('個人開発'));
+  if (!gradeTag) return 'dev';
+  if (gradeTag.includes('3年次')) return '3rd';
+  if (gradeTag.includes('2年次')) return '2nd';
+  if (gradeTag.includes('1年次')) return '1st';
+  return 'dev';
+}
+
 function renderWorks() {
   const container = document.getElementById('works-grid');
   if (!container || typeof PORTFOLIO_PROJECTS === 'undefined') return;
@@ -56,14 +73,14 @@ function renderWorks() {
     }
 
     return `
-      <article class="work-card" data-category="${item.category}" data-id="${item.id}" role="button" tabindex="0" aria-label="${escapeHtml(item.title)}の詳細を見る">
+      <article class="work-card" data-category="${item.category}" data-grade="${getProjectGrade(item)}" data-id="${item.id}" role="button" tabindex="0" aria-label="${escapeHtml(item.title)}の詳細を見る">
         <div class="card-header-visual">
           ${item.featured ? '<span class="card-featured-badge">看板作品</span>' : ''}
           ${visualHtml}
         </div>
         <div class="card-body">
           <div class="card-tags">
-            ${item.tags.map((t) => `<span class="card-tag">${escapeHtml(t)}</span>`).join('')}
+            ${item.tags.map((t) => `<span class="card-tag ${getTagClass(t)}">${escapeHtml(t)}</span>`).join('')}
           </div>
           <h3 class="card-title">${escapeHtml(item.title)}</h3>
           <p class="card-desc">${escapeHtml(item.shortDesc)}</p>
@@ -179,7 +196,7 @@ function initProjectModals() {
     modalContent.innerHTML = `
       <div class="modal-header">
         <div class="modal-tags">
-          ${data.tags.map((t) => `<span class="card-tag">${escapeHtml(t)}</span>`).join('')}
+          ${data.tags.map((t) => `<span class="card-tag ${getTagClass(t)}">${escapeHtml(t)}</span>`).join('')}
         </div>
         <h2 class="modal-title">${escapeHtml(data.title)}</h2>
         <div class="modal-header-links">
