@@ -2,7 +2,7 @@
  * 曽根 大誠 (Taisei Sone) - ゲームプログラマー ポートフォリオスクリプト
  * 1. 作品一覧の自動描画 (projects-data.js より読み込み)
  * 2. カテゴリフィルター処理
- * 3. 作品詳細モーダルウィンドウ制御
+ * 3. 作品詳細モーダルウィンドウ制御 (YouTube埋め込みプレーヤー連携)
  * 4. ナビゲーション制御
  */
 
@@ -24,7 +24,17 @@ function renderWorks() {
     // サムネイル表示
     let visualHtml = '';
     if (item.image) {
-      visualHtml = `<img src="${item.image}" alt="${escapeHtml(item.title)}" class="card-img">`;
+      visualHtml = `
+        <div class="card-img-wrapper">
+          <img src="${item.image}" alt="${escapeHtml(item.title)}" class="card-img" loading="lazy">
+          ${item.youtubeId ? `
+            <div class="card-video-badge">
+              <i class="fa-brands fa-youtube card-video-icon"></i>
+              <span>動画あり</span>
+            </div>
+          ` : ''}
+        </div>
+      `;
     } else {
       visualHtml = `
         <i class="${item.icon} card-visual-icon" style="color: ${item.iconColor || 'var(--accent-primary-hover)'};"></i>
@@ -47,12 +57,21 @@ function renderWorks() {
           <p class="card-desc">${escapeHtml(item.shortDesc)}</p>
           <div class="card-actions">
             <button class="btn-open-detail" data-target="${item.id}">
-              <span>詳細・こだわり</span>
+              <span>${item.youtubeId ? '動画・詳細を見る' : '詳細・こだわり'}</span>
               <i class="fa-solid fa-arrow-right"></i>
             </button>
-            <a href="${item.repoUrl}" target="_blank" rel="noopener noreferrer" class="link-repo-icon" title="GitHubリポジトリ">
-              <i class="fa-brands fa-github"></i>
-            </a>
+            <div class="card-links-group">
+              ${item.youtubeUrl ? `
+                <a href="${item.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="link-youtube-icon" title="YouTubeで動画を見る">
+                  <i class="fa-brands fa-youtube"></i>
+                </a>
+              ` : ''}
+              ${item.repoUrl ? `
+                <a href="${item.repoUrl}" target="_blank" rel="noopener noreferrer" class="link-repo-icon" title="GitHubリポジトリ">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+              ` : ''}
+            </div>
           </div>
         </div>
       </article>
@@ -109,17 +128,64 @@ function initProjectModals() {
     const data = PORTFOLIO_PROJECTS.find((p) => p.id === id);
     if (!data) return;
 
+    // YouTube動画プレイヤーの埋め込みHTML
+    let videoHtml = '';
+    if (data.youtubeId) {
+      const isFileProtocol = window.location.protocol === 'file:';
+      const fileNoticeHtml = isFileProtocol
+        ? `
+          <div class="modal-video-notice">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>※ ローカル直接起動（<code>file://</code>）時はYouTubeのセキュリティ制限（リファラー制限）でエラー153が出る場合があります。GitHub Pagesへの公開後やWebサーバー環境では正常に再生されます。右側の「YouTubeで再生」から直接視聴も可能です。</span>
+          </div>
+        `
+        : '';
+
+      videoHtml = `
+        <div class="modal-video-section">
+          <div class="modal-video-wrapper">
+            <iframe 
+              src="https://www.youtube.com/embed/${encodeURIComponent(data.youtubeId)}?rel=0" 
+              title="${escapeHtml(data.title)}" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              referrerpolicy="strict-origin-when-cross-origin" 
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="modal-video-caption">
+            <span><i class="fa-solid fa-play"></i> プレイ動画・作品デモ</span>
+            <a href="${data.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="video-direct-link">
+              YouTubeで全画面再生 <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+          ${fileNoticeHtml}
+        </div>
+      `;
+    }
+
     modalContent.innerHTML = `
       <div class="modal-header">
         <div class="modal-tags">
           ${data.tags.map((t) => `<span class="card-tag">${escapeHtml(t)}</span>`).join('')}
         </div>
         <h2 class="modal-title">${escapeHtml(data.title)}</h2>
-        <a href="${data.repoUrl}" target="_blank" rel="noopener noreferrer" class="modal-repo-link">
-          <i class="fa-brands fa-github"></i> GitHubリポジトリを見る
-        </a>
+        <div class="modal-header-links">
+          ${data.youtubeUrl ? `
+            <a href="${data.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="modal-link-badge modal-youtube-badge">
+              <i class="fa-brands fa-youtube"></i> YouTube動画
+            </a>
+          ` : ''}
+          ${data.repoUrl ? `
+            <a href="${data.repoUrl}" target="_blank" rel="noopener noreferrer" class="modal-link-badge modal-github-badge">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+          ` : ''}
+        </div>
       </div>
       <div class="modal-body">
+        ${videoHtml}
+
         <div>
           <h3 class="modal-section-title"><i class="fa-solid fa-align-left"></i> 作品概要</h3>
           <p class="modal-text">${escapeHtml(data.details.summary)}</p>
@@ -163,6 +229,12 @@ function initProjectModals() {
   function closeModal() {
     modal.classList.remove('active');
     document.body.style.overflow = '';
+    // YouTube動画の音声を即座に停止するため中身をクリア
+    setTimeout(() => {
+      if (!modal.classList.contains('active')) {
+        modalContent.innerHTML = '';
+      }
+    }, 200);
   }
 
   // イベント委譲（ヒーローカード内のボタンにも対応）
