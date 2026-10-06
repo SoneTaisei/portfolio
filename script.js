@@ -375,6 +375,9 @@ function stopHoverVideo() {
   const card = activeHoverCard;
   activeHoverCard = null;
 
+  // 再生中クラスを除去（バッジ類を再表示）
+  card.classList.remove('is-video-playing');
+
   // プレビューコンテナを削除
   const preview = card.querySelector('.card-hover-preview');
   if (preview) {
@@ -408,6 +411,9 @@ function startHoverVideo(card) {
   if (card.querySelector('.card-hover-preview')) return;
 
   activeHoverCard = card;
+
+  // 再生中クラスを付与（画面上のバッジ類を非表示化）
+  card.classList.add('is-video-playing');
 
   // プレビューコンテナ生成
   const preview = document.createElement('div');
