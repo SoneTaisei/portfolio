@@ -33,6 +33,12 @@ function renderWorks() {
               <span>動画あり</span>
             </div>
           ` : ''}
+          ${!item.youtubeId && item.repoUrl ? `
+            <a href="${item.repoUrl}" target="_blank" rel="noopener noreferrer" class="card-git-badge" title="GitHubリポジトリを見る" onclick="event.stopPropagation()">
+              <i class="fa-brands fa-github card-git-icon"></i>
+              <span>GitHub</span>
+            </a>
+          ` : ''}
         </div>
       `;
     } else {
@@ -40,6 +46,12 @@ function renderWorks() {
         <i class="${item.icon} card-visual-icon" style="color: ${item.iconColor || 'var(--accent-primary-hover)'};"></i>
         <span class="card-visual-title">${escapeHtml(item.title.split(' ')[0])}</span>
         <span class="card-visual-sub">${escapeHtml(item.subTitle)}</span>
+        ${item.repoUrl ? `
+          <a href="${item.repoUrl}" target="_blank" rel="noopener noreferrer" class="card-git-badge" title="GitHubリポジトリを見る" onclick="event.stopPropagation()">
+            <i class="fa-brands fa-github card-git-icon"></i>
+            <span>GitHub</span>
+          </a>
+        ` : ''}
       `;
     }
 

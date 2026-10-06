@@ -19,7 +19,7 @@ const PORTFOLIO_PROJECTS = [
     repoUrl: "https://github.com/SoneTaisei/SoneEngine",
     youtubeId: "",
     youtubeUrl: "",
-    image: "",
+    image: "assets/images/sone-engine-github.png",
     icon: "fa-solid fa-cubes",
     iconColor: "#ea580c",
     tags: ["C++", "DirectX", "独自物理挙動", "リプレイエディター", "Dear ImGui"],
