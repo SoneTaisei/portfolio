@@ -166,30 +166,10 @@ code {
   margin-left: 4px;
 }
 
-.nav-menu {
+.nav-actions {
   display: flex;
   align-items: center;
-  gap: 28px;
-}
-
-.nav-link {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: color 0.2s ease;
-  padding: 6px 0;
-}
-
-.nav-link:hover,
-.nav-link.active {
-  color: var(--accent-primary);
-  text-decoration: none;
-}
-
-.nav-link.active {
-  font-weight: 700;
-  border-bottom: 2px solid var(--accent-primary);
+  gap: 12px;
 }
 
 .nav-github-link {
@@ -213,24 +193,6 @@ code {
   border-color: var(--accent-primary-border);
   color: var(--accent-primary);
   text-decoration: none;
-}
-
-.menu-toggle {
-  display: none;
-  background: none;
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-sm);
-  padding: 8px;
-  cursor: pointer;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.menu-toggle .bar {
-  width: 20px;
-  height: 2px;
-  background-color: var(--text-main);
-  transition: 0.2s;
 }
 
 /* ==========================================================================
@@ -295,6 +257,190 @@ code {
   color: var(--text-muted);
   line-height: 1.8;
   margin-bottom: 32px;
+}
+
+/* ==========================================================================
+   Wikipedia風 右側固定目次 (Wikipedia Floating Table of Contents)
+   ========================================================================== */
+.wiki-toc {
+  position: fixed;
+  top: 84px;
+  right: 20px;
+  width: 220px;
+  max-height: calc(100vh - 104px);
+  background: #ffffff;
+  border: 1px solid #c8ccd1;
+  border-radius: 4px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  z-index: 95;
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  transition: width 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.wiki-toc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #c8ccd1;
+  user-select: none;
+}
+
+.wiki-toc-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #202122;
+}
+
+.wiki-toc-toggle-btn {
+  background: #eaecf0;
+  border: 1px solid #c8ccd1;
+  color: #202122;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  line-height: 1.3;
+}
+
+.wiki-toc-toggle-btn:hover {
+  background: #d8dade;
+  color: #000000;
+}
+
+.wiki-toc-body {
+  padding: 10px 12px 12px;
+  overflow-y: auto;
+  max-height: calc(100vh - 150px);
+}
+
+.wiki-toc-body::-webkit-scrollbar {
+  width: 4px;
+}
+.wiki-toc-body::-webkit-scrollbar-thumb {
+  background: #c8ccd1;
+  border-radius: 2px;
+}
+
+/* 折りたたみ（非表示）状態 */
+.wiki-toc.is-collapsed {
+  width: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.wiki-toc.is-collapsed .wiki-toc-header {
+  border-bottom: none;
+  padding: 6px 10px;
+  gap: 8px;
+}
+
+.wiki-toc.is-collapsed .wiki-toc-body {
+  display: none;
+}
+
+/* 目次リスト */
+.wiki-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.wiki-toc-item {
+  line-height: 1.4;
+}
+
+.wiki-toc-link {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  color: #3366cc;
+  text-decoration: none;
+  font-size: 0.85rem;
+  padding: 2px 4px;
+  border-radius: 2px;
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.wiki-toc-link:hover {
+  text-decoration: underline;
+  color: #202122;
+  background-color: #f1f5f9;
+}
+
+.wiki-toc-link.is-top {
+  font-weight: 700;
+  color: #202122;
+  padding-left: 2px;
+}
+
+.wiki-toc-link.is-top:hover {
+  color: #3366cc;
+  text-decoration: underline;
+}
+
+.wiki-toc-marker {
+  font-size: 0.72rem;
+  color: #54595d;
+  font-weight: 700;
+  user-select: none;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.wiki-toc-text {
+  flex: 1;
+}
+
+/* サブリスト */
+.wiki-toc-sublist {
+  list-style: none;
+  margin: 2px 0 4px 14px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.wiki-toc-sublink {
+  display: block;
+  color: #3366cc;
+  text-decoration: none;
+  font-size: 0.8rem;
+  padding: 1px 4px;
+  border-radius: 2px;
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.wiki-toc-sublink:hover {
+  text-decoration: underline;
+  color: #202122;
+  background-color: #f1f5f9;
+}
+
+/* アクティブ項目（スクロール位置に応じたハイライト） */
+.wiki-toc-link.is-active,
+.wiki-toc-sublink.is-active {
+  font-weight: 700;
+  color: var(--accent-primary);
+  background-color: var(--accent-primary-soft);
+}
+.wiki-toc-link.is-active .wiki-toc-marker {
+  color: var(--accent-primary);
+}
+
+/* スクロールマージン（固定ナビゲーションバーの高さ分を確保） */
+section[id],
+.skill-box[id] {
+  scroll-margin-top: 85px;
 }
 
 .hero-actions {
@@ -1463,29 +1609,6 @@ code {
 }
 
 @media (max-width: 768px) {
-  .nav-menu {
-    position: fixed;
-    top: var(--nav-height);
-    left: 0;
-    width: 100%;
-    background: var(--bg-surface);
-    flex-direction: column;
-    padding: 24px;
-    gap: 18px;
-    border-bottom: 1px solid var(--border-default);
-    transform: translateY(-120%);
-    transition: transform 0.2s ease;
-    box-shadow: var(--shadow-md);
-  }
-
-  .nav-menu.active {
-    transform: translateY(0);
-  }
-
-  .menu-toggle {
-    display: flex;
-  }
-
   .works-grid {
     grid-template-columns: 1fr;
   }
@@ -1496,5 +1619,11 @@ code {
 
   .modal-content {
     padding: 24px;
+  }
+
+  .wiki-toc {
+    top: 74px;
+    right: 10px;
+    max-height: calc(100vh - 86px);
   }
 }

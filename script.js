@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderWorks();
   initCategoryFilter();
   initProjectModals();
-  initNavigation();
+  initWikiToc();
 });
 
 /* ==========================================================================
@@ -288,43 +288,97 @@ function escapeHtml(str) {
 }
 
 /* ==========================================================================
-   4. ナビゲーション & スクロール制御
+   4. Wikipedia風 右側固定目次 (表示/非表示トグル & スムーズスクロール & ハイライト)
    ========================================================================== */
-function initNavigation() {
-  const menuToggle = document.getElementById('menu-toggle');
-  const navMenu = document.getElementById('nav-menu');
-  const navLinks = document.querySelectorAll('.nav-link');
+function initWikiToc() {
+  const toc = document.getElementById('wiki-toc');
+  const toggleBtn = document.getElementById('wiki-toc-toggle');
+  if (!toc || !toggleBtn) return;
 
-  if (menuToggle && navMenu) {
-    menuToggle.addEventListener('click', () => {
-      menuToggle.classList.toggle('active');
-      navMenu.classList.toggle('active');
-    });
-
-    navLinks.forEach((link) => {
-      link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        navMenu.classList.remove('active');
-      });
-    });
+  // 初期開閉状態の判定 (小画面では初期折りたたみ、それ以外は保存設定を復元)
+  const isMobile = window.innerWidth <= 768;
+  const savedState = localStorage.getItem('wiki_toc_collapsed');
+  if (savedState === 'true' || (isMobile && savedState === null)) {
+    toc.classList.add('is-collapsed');
+    toggleBtn.textContent = '表示';
+    toggleBtn.setAttribute('aria-expanded', 'false');
   }
 
-  const sections = document.querySelectorAll('section[id]');
-  window.addEventListener('scroll', () => {
-    const scrollY = window.pageYOffset;
-    sections.forEach((current) => {
-      const sectionHeight = current.offsetHeight;
-      const sectionTop = current.offsetTop - 100;
-      const sectionId = current.getAttribute('id');
+  // 表示 / 非表示 切替トグル
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isCollapsed = toc.classList.toggle('is-collapsed');
+    toggleBtn.textContent = isCollapsed ? '表示' : '非表示';
+    toggleBtn.setAttribute('aria-expanded', !isCollapsed);
+    try {
+      localStorage.setItem('wiki_toc_collapsed', isCollapsed ? 'true' : 'false');
+    } catch (err) {
+      // localStorageが制限されている環境への安全策
+    }
+  });
 
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        navLinks.forEach((link) => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${sectionId}`) {
-            link.classList.add('active');
-          }
-        });
+  // 目次リンクのクリックジャンプ処理
+  const tocLinks = toc.querySelectorAll('.wiki-toc-link, .wiki-toc-sublink');
+  tocLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const targetHref = link.getAttribute('href');
+      if (!targetHref || !targetHref.startsWith('#')) return;
+
+      const targetEl = document.querySelector(targetHref);
+      if (targetEl) {
+        e.preventDefault();
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+
+        // URLハッシュを更新
+        if (history.pushState) {
+          history.pushState(null, '', targetHref);
+        } else {
+          window.location.hash = targetHref;
+        }
+
+        // 小画面の場合は遷移後に自動で折りたたむ
+        if (window.innerWidth <= 768) {
+          toc.classList.add('is-collapsed');
+          toggleBtn.textContent = '表示';
+          toggleBtn.setAttribute('aria-expanded', 'false');
+        }
       }
     });
   });
+
+  // スクロールスパイ（現在閲覧中のセクションを目次でハイライト）
+  const watchedTargets = [
+    { id: 'hero', el: document.getElementById('hero') },
+    { id: 'about', el: document.getElementById('about') },
+    { id: 'skills', el: document.getElementById('skills') },
+    { id: 'skills-lang', el: document.getElementById('skills-lang') },
+    { id: 'skills-graphics', el: document.getElementById('skills-graphics') },
+    { id: 'skills-engine', el: document.getElementById('skills-engine') },
+    { id: 'works', el: document.getElementById('works') },
+    { id: 'contact', el: document.getElementById('contact') }
+  ].filter(item => item.el !== null);
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.pageYOffset;
+    let currentId = '';
+
+    watchedTargets.forEach((item) => {
+      const top = item.el.offsetTop - 120;
+      const height = item.el.offsetHeight;
+      if (scrollY >= top && scrollY < top + height) {
+        currentId = item.id;
+      }
+    });
+
+    if (currentId) {
+      tocLinks.forEach((link) => {
+        const href = link.getAttribute('href');
+        if (href === `#${currentId}`) {
+          link.classList.add('is-active');
+        } else {
+          link.classList.remove('is-active');
+        }
+      });
+    }
+  }, { passive: true });
 }

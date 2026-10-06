@@ -36,24 +36,60 @@
         </div>
       </a>
 
-      <nav class="nav-menu" id="nav-menu">
-        <a href="#about" class="nav-link">自己紹介</a>
-        <a href="#skills" class="nav-link">習得スキル</a>
-        <a href="#works" class="nav-link">制作実績</a>
-        <a href="#contact" class="nav-link">連絡先</a>
+      <div class="nav-actions">
         <a href="https://github.com/SoneTaisei" target="_blank" rel="noopener noreferrer" class="nav-github-link">
           <i class="fa-brands fa-github"></i>
           <span>GitHub</span>
         </a>
-      </nav>
-
-      <button class="menu-toggle" id="menu-toggle" aria-label="メニュー開閉">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
+      </div>
     </div>
   </header>
+
+  <!-- Wikipedia風 右側固定目次 -->
+  <aside id="wiki-toc" class="wiki-toc" aria-label="目次ナビゲーション">
+    <div class="wiki-toc-header">
+      <span class="wiki-toc-title">目次</span>
+      <button type="button" id="wiki-toc-toggle" class="wiki-toc-toggle-btn" aria-expanded="true" aria-controls="wiki-toc-body" title="目次の表示・非表示を切り替え">
+        非表示
+      </button>
+    </div>
+    <div id="wiki-toc-body" class="wiki-toc-body">
+      <ul class="wiki-toc-list">
+        <li class="wiki-toc-item">
+          <a href="#hero" class="wiki-toc-link is-top">ページ先頭</a>
+        </li>
+        <li class="wiki-toc-item">
+          <a href="#about" class="wiki-toc-link">
+            <span class="wiki-toc-marker">&gt;</span>
+            <span class="wiki-toc-text">自己紹介 &amp; 想い</span>
+          </a>
+        </li>
+        <li class="wiki-toc-item">
+          <a href="#skills" class="wiki-toc-link">
+            <span class="wiki-toc-marker">&gt;</span>
+            <span class="wiki-toc-text">習得スキル &amp; 環境</span>
+          </a>
+          <ul class="wiki-toc-sublist">
+            <li><a href="#skills-lang" class="wiki-toc-sublink">言語 (C++ / HLSL)</a></li>
+            <li><a href="#skills-graphics" class="wiki-toc-sublink">描画API &amp; 3D数学</a></li>
+            <li><a href="#skills-engine" class="wiki-toc-sublink">エンジン &amp; ツール</a></li>
+          </ul>
+        </li>
+        <li class="wiki-toc-item">
+          <a href="#works" class="wiki-toc-link">
+            <span class="wiki-toc-marker">&gt;</span>
+            <span class="wiki-toc-text">制作実績（12作品）</span>
+          </a>
+        </li>
+        <li class="wiki-toc-item">
+          <a href="#contact" class="wiki-toc-link">
+            <span class="wiki-toc-marker">&gt;</span>
+            <span class="wiki-toc-text">お問い合わせ / リンク</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
 
   <main>
     <!-- ヒーローセクション（エディトリアル・2カラム構成） -->
@@ -73,15 +109,6 @@
             はじめまして、曽根 大誠（そね たいせい）です。<br>
             市販エンジンを使うだけでなく、C++とDirectXを用いた自作ゲームエンジン（<code>SoneEngine</code>）を構築。独自の剛体・衝突物理挙動の実装や、1フレーム単位で挙動を巻き戻して不具合を調査できる「デバッグ用リプレイエディター」の自作など、ゲームの基盤と開発体験を支えるプログラミングに取り組んでいます。
           </p>
-
-          <div class="hero-actions">
-            <a href="#works" class="btn btn-primary">
-              <i class="fa-solid fa-layer-group"></i> 制作実績を見る（12件）
-            </a>
-            <a href="https://github.com/SoneTaisei" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-              <i class="fa-brands fa-github"></i> GitHub (@SoneTaisei)
-            </a>
-          </div>
         </div>
 
         <!-- 右側：看板作品（自作エンジン）のプレビュー -->
@@ -211,7 +238,7 @@
 
         <div class="skills-columns">
           <!-- 1. 言語 -->
-          <div class="skill-box">
+          <div class="skill-box" id="skills-lang">
             <div class="skill-box-header">
               <i class="fa-solid fa-code skill-box-icon"></i>
               <h3 class="skill-box-title">プログラミング言語</h3>
@@ -249,7 +276,7 @@
           </div>
 
           <!-- 2. グラフィックス & ライブラリ -->
-          <div class="skill-box">
+          <div class="skill-box" id="skills-graphics">
             <div class="skill-box-header">
               <i class="fa-solid fa-layer-group skill-box-icon"></i>
               <h3 class="skill-box-title">描画API &amp; 3D数学</h3>
@@ -280,7 +307,7 @@
           </div>
 
           <!-- 3. エンジン & ツール -->
-          <div class="skill-box">
+          <div class="skill-box" id="skills-engine">
             <div class="skill-box-header">
               <i class="fa-solid fa-wrench skill-box-icon"></i>
               <h3 class="skill-box-title">エンジン &amp; 開発ツール</h3>
