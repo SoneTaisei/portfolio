@@ -56,7 +56,7 @@ function renderWorks() {
     }
 
     return `
-      <article class="work-card" data-category="${item.category}" data-id="${item.id}">
+      <article class="work-card" data-category="${item.category}" data-id="${item.id}" role="button" tabindex="0" aria-label="${escapeHtml(item.title)}の詳細を見る">
         <div class="card-header-visual">
           ${item.featured ? '<span class="card-featured-badge">看板作品</span>' : ''}
           ${visualHtml}
@@ -68,18 +68,18 @@ function renderWorks() {
           <h3 class="card-title">${escapeHtml(item.title)}</h3>
           <p class="card-desc">${escapeHtml(item.shortDesc)}</p>
           <div class="card-actions">
-            <button class="btn-open-detail" data-target="${item.id}">
-              <span>${item.youtubeId ? '動画・詳細を見る' : '詳細・こだわり'}</span>
+            <span class="card-action-indicator">
+              <span>${item.youtubeId ? '動画・詳細' : '詳細・こだわり'}</span>
               <i class="fa-solid fa-arrow-right"></i>
-            </button>
+            </span>
             <div class="card-links-group">
               ${item.youtubeUrl ? `
-                <a href="${item.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="link-youtube-icon" title="YouTubeで動画を見る">
+                <a href="${item.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="link-youtube-icon" title="YouTubeで動画を見る" onclick="event.stopPropagation()">
                   <i class="fa-brands fa-youtube"></i>
                 </a>
               ` : ''}
               ${item.repoUrl ? `
-                <a href="${item.repoUrl}" target="_blank" rel="noopener noreferrer" class="link-repo-icon" title="GitHubリポジトリ">
+                <a href="${item.repoUrl}" target="_blank" rel="noopener noreferrer" class="link-repo-icon" title="GitHubリポジトリ" onclick="event.stopPropagation()">
                   <i class="fa-brands fa-github"></i>
                 </a>
               ` : ''}
@@ -249,12 +249,34 @@ function initProjectModals() {
     }, 200);
   }
 
-  // イベント委譲（ヒーローカード内のボタンにも対応）
+  // イベント委譲（カード全体または詳細ボタンのクリックでモーダルを開く）
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.btn-open-detail');
-    if (btn) {
-      const targetId = btn.dataset.target;
-      openModal(targetId);
+    // 外部リンク（GitHub/YouTube等のaタグ）がクリックされた場合はモーダルを開かない
+    if (e.target.closest('a')) {
+      return;
+    }
+
+    // 作品カードまたは詳細ボタンがクリックされた場合
+    const cardOrBtn = e.target.closest('.work-card, .hero-featured-card, .btn-open-detail');
+    if (cardOrBtn) {
+      const targetId = cardOrBtn.dataset.id || cardOrBtn.dataset.target;
+      if (targetId) {
+        openModal(targetId);
+      }
+    }
+  });
+
+  // キーボード操作（Enter / Space でフォーカス中のカードを開く）
+  document.addEventListener('keydown', (e) => {
+    if ((e.key === 'Enter' || e.key === ' ') && !modal.classList.contains('active')) {
+      const focusedCard = document.activeElement?.closest('.work-card, .hero-featured-card');
+      if (focusedCard && !document.activeElement.closest('a, button')) {
+        e.preventDefault();
+        const targetId = focusedCard.dataset.id || focusedCard.dataset.target;
+        if (targetId) {
+          openModal(targetId);
+        }
+      }
     }
   });
 
@@ -354,8 +376,7 @@ function initWikiToc() {
     { id: 'skills-lang', el: document.getElementById('skills-lang') },
     { id: 'skills-graphics', el: document.getElementById('skills-graphics') },
     { id: 'skills-engine', el: document.getElementById('skills-engine') },
-    { id: 'works', el: document.getElementById('works') },
-    { id: 'contact', el: document.getElementById('contact') }
+    { id: 'works', el: document.getElementById('works') }
   ].filter(item => item.el !== null);
 
   window.addEventListener('scroll', () => {

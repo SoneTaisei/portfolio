@@ -81,12 +81,6 @@
             <span class="wiki-toc-text">制作実績（12作品）</span>
           </a>
         </li>
-        <li class="wiki-toc-item">
-          <a href="#contact" class="wiki-toc-link">
-            <span class="wiki-toc-marker">&gt;</span>
-            <span class="wiki-toc-text">お問い合わせ / リンク</span>
-          </a>
-        </li>
       </ul>
     </div>
   </aside>
@@ -112,7 +106,7 @@
         </div>
 
         <!-- 右側：看板作品（自作エンジン）のプレビュー -->
-        <div class="hero-featured-card">
+        <div class="hero-featured-card" data-id="sone-engine" role="button" tabindex="0" aria-label="SoneEngineの詳細を見る">
           <div class="card-topbar">
             <div class="card-topbar-left">
               <i class="fa-solid fa-cube"></i>
@@ -363,29 +357,6 @@
       </div>
     </section>
 
-    <!-- 連絡先セクション -->
-    <section id="contact" class="section contact-section">
-      <div class="container">
-        <div class="contact-card">
-          <span class="section-label">04 / Contact</span>
-          <h2 class="section-title" style="margin-bottom: 12px;">お問い合わせ / リンク</h2>
-          <p class="contact-lead">
-            ソースコードの閲覧や詳細なご質問、フィードバックはGitHubまたは下記よりお願いいたします。
-          </p>
-
-          <div class="contact-btn-group">
-            <a href="https://github.com/SoneTaisei" target="_blank" rel="noopener noreferrer" class="contact-card-btn">
-              <i class="fa-brands fa-github"></i>
-              <span>GitHub: @SoneTaisei</span>
-            </a>
-          </div>
-
-          <p class="contact-hint">
-            ※学校指定のメールアドレスや各種連絡先もここに追加可能です。
-          </p>
-        </div>
-      </div>
-    </section>
   </main>
 
   <!-- 作品詳細モーダルウィンドウ -->
@@ -401,8 +372,14 @@
   <!-- フッター -->
   <footer class="footer">
     <div class="container footer-content">
-      <p>&copy; 2026 曽根 大誠 (Taisei Sone). All Rights Reserved.</p>
-      <p>ゲームプログラマー ポートフォリオ</p>
+      <div class="footer-links">
+        <a href="https://github.com/SoneTaisei" target="_blank" rel="noopener noreferrer" class="footer-link">
+          <i class="fa-brands fa-github"></i>
+          <span>GitHub: @SoneTaisei</span>
+        </a>
+      </div>
+      <p class="footer-copyright">&copy; 2026 曽根 大誠 (Taisei Sone). All Rights Reserved.</p>
+      <p class="footer-subtitle">ゲームプログラマー ポートフォリオ</p>
     </div>
   </footer>
 
