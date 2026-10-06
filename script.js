@@ -413,20 +413,35 @@ function startHoverVideo(card) {
   const preview = document.createElement('div');
   preview.className = 'card-hover-preview';
 
-  // YouTube埋め込み (自動再生・ミュート・ループ・コントロール非表示)
-  const embedUrl = `https://www.youtube.com/embed/${encodeURIComponent(youtubeId)}?autoplay=1&mute=1&controls=0&loop=1&playlist=${encodeURIComponent(youtubeId)}&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1`;
+  // オリジン情報（GitHub Pages等で有効）
+  const originParam = window.location.protocol.startsWith('http')
+    ? `&origin=${encodeURIComponent(window.location.origin)}`
+    : '';
 
-  preview.innerHTML = `
-    <iframe 
-      src="${embedUrl}" 
-      title="プレビュー動画" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      referrerpolicy="strict-origin-when-cross-origin" 
-      tabindex="-1">
-    </iframe>
-  `;
+  // YouTube埋め込み (enablejsapi=1, autoplay=1, mute=1, loop=1)
+  const embedUrl = `https://www.youtube.com/embed/${encodeURIComponent(youtubeId)}?enablejsapi=1&autoplay=1&mute=1&controls=0&loop=1&playlist=${encodeURIComponent(youtubeId)}&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1${originParam}`;
 
+  const iframe = document.createElement('iframe');
+  iframe.src = embedUrl;
+  iframe.title = 'プレビュー動画';
+  iframe.setAttribute('frameborder', '0');
+  iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+  iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+  iframe.tabIndex = -1;
+
+  // ロード完了時にYouTube APIへ再生・ミュートコマンドを送信（自動再生ポリシー対策）
+  iframe.addEventListener('load', () => {
+    try {
+      if (iframe.contentWindow) {
+        iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'mute', args: [] }), '*');
+        iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), '*');
+      }
+    } catch (e) {
+      // ignore
+    }
+  });
+
+  preview.appendChild(iframe);
   wrapper.appendChild(preview);
 
   // フェードイン表示
@@ -446,61 +461,41 @@ function startHoverVideo(card) {
 }
 
 function initCardHoverVideo() {
-  const worksGrid = document.getElementById('works-grid');
-  if (!worksGrid) return;
+  const cards = document.querySelectorAll('.work-card');
+  if (!cards || cards.length === 0) return;
 
-  // マウスホバー検知 (委譲)
-  worksGrid.addEventListener('mouseover', (e) => {
-    const card = e.target.closest('.work-card');
-    if (!card) return;
-
-    // カード内部の子要素同士の移動は無視
-    if (e.relatedTarget && card.contains(e.relatedTarget)) {
-      return;
-    }
-
-    // すでにこのカードがアクティブなら何もしない
-    if (activeHoverCard === card) return;
-
-    // 他のタイマーがあればキャンセル
-    if (hoverTimer) {
-      clearTimeout(hoverTimer);
-      hoverTimer = null;
-    }
-
-    // 他のカードが再生中なら即座に停止
-    if (activeHoverCard && activeHoverCard !== card) {
-      stopHoverVideo();
-    }
-
-    // 動画IDがないカード（自作エンジンなど）はスキップ
+  cards.forEach((card) => {
     if (!card.dataset.youtubeId) return;
 
-    // わずかな遅延（約180ms）を設け、素早く通過しただけの誤爆通信を防ぐ
-    hoverTimer = setTimeout(() => {
-      startHoverVideo(card);
-    }, 180);
-  });
+    // mouseenter: カード枠内に入った時のみ発火（子要素間移動に影響されない）
+    card.addEventListener('mouseenter', () => {
+      if (activeHoverCard === card) return;
 
-  // マウス離脱検知
-  worksGrid.addEventListener('mouseout', (e) => {
-    const card = e.target.closest('.work-card');
-    if (!card) return;
+      if (hoverTimer) {
+        clearTimeout(hoverTimer);
+        hoverTimer = null;
+      }
 
-    // カード内部の子要素への移動であれば無視
-    if (e.relatedTarget && card.contains(e.relatedTarget)) {
-      return;
-    }
+      if (activeHoverCard && activeHoverCard !== card) {
+        stopHoverVideo();
+      }
 
-    // カードから完全に外れた
-    if (hoverTimer) {
-      clearTimeout(hoverTimer);
-      hoverTimer = null;
-    }
+      // 約120ms後に再生開始
+      hoverTimer = setTimeout(() => {
+        startHoverVideo(card);
+      }, 120);
+    });
 
-    if (activeHoverCard === card) {
-      stopHoverVideo();
-    }
+    // mouseleave: カード枠から完全に外れた時のみ発火
+    card.addEventListener('mouseleave', () => {
+      if (hoverTimer) {
+        clearTimeout(hoverTimer);
+        hoverTimer = null;
+      }
+      if (activeHoverCard === card) {
+        stopHoverVideo();
+      }
+    });
   });
 
   // ウィンドウ全体のスクロール時に停止
