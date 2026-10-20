@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderWorks();
   initCategoryFilter();
   initProjectModals();
+  initDownloadConfirmModal();
   initCardHoverVideo();
   initWikiToc();
 });
@@ -79,6 +80,12 @@ function renderWorks() {
               <i class="fa-solid fa-arrow-right"></i>
             </span>
             <div class="card-links-group">
+              ${item.downloadUrl ? `
+                <button type="button" class="card-action-btn card-action-download" title="ゲームをダウンロード (.zip)" onclick="event.stopPropagation(); openDownloadConfirm('${item.id}')">
+                  <i class="fa-solid fa-download"></i>
+                  <span>DL</span>
+                </button>
+              ` : ''}
               ${item.youtubeUrl ? `
                 <a href="${item.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-action-youtube" title="YouTubeで動画を見る" onclick="event.stopPropagation()">
                   <i class="fa-brands fa-youtube"></i>
@@ -198,6 +205,12 @@ function initProjectModals() {
         </div>
         <h2 class="modal-title">${escapeHtml(data.title)}</h2>
         <div class="modal-header-links">
+          ${data.downloadUrl ? `
+            <button type="button" class="modal-link-badge modal-download-badge" onclick="openDownloadConfirm('${data.id}')">
+              <i class="fa-solid fa-download"></i>
+              <span>ゲームをダウンロード (${escapeHtml(data.downloadSize || 'ZIP')})</span>
+            </button>
+          ` : ''}
           ${data.youtubeUrl ? `
             <a href="${data.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="modal-link-badge modal-youtube-badge">
               <i class="fa-brands fa-youtube"></i>
@@ -250,6 +263,22 @@ function initProjectModals() {
         `
             : ''
         }
+        
+        ${data.downloadUrl ? `
+        <div class="modal-download-cta">
+          <div class="modal-download-cta-info">
+            <div class="modal-download-cta-title">
+              <i class="fa-solid fa-gamepad"></i>
+              <span>このゲームをPCでプレイできます</span>
+            </div>
+            <p class="modal-download-cta-desc">実行ファイル（.exe）およびゲーム素材一式が含まれたZIPアーカイブ（${escapeHtml(data.downloadSize || 'ZIP')}）です。</p>
+          </div>
+          <button type="button" class="btn-modal-download-cta" onclick="openDownloadConfirm('${data.id}')">
+            <i class="fa-solid fa-download"></i>
+            <span>ゲームをダウンロード</span>
+          </button>
+        </div>
+        ` : ''}
 
         ${data.repoUrl ? `
         <div class="modal-repo-cta">
@@ -287,8 +316,8 @@ function initProjectModals() {
 
   // イベント委譲（カード全体または詳細ボタンのクリックでモーダルを開く）
   document.addEventListener('click', (e) => {
-    // 外部リンク（GitHub/YouTube等のaタグ）がクリックされた場合はモーダルを開かない
-    if (e.target.closest('a')) {
+    // リンクやボタン、ダウンロードボタンがクリックされた場合はモーダルを開かない
+    if (e.target.closest('a, button, .card-action-download')) {
       return;
     }
 
@@ -343,6 +372,94 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+/* ==========================================================================
+   ダウンロード確認モーダルウィンドウ制御
+   ========================================================================== */
+let pendingDownloadData = null;
+
+function openDownloadConfirm(projectId) {
+  if (typeof PORTFOLIO_PROJECTS === 'undefined') return;
+  const data = PORTFOLIO_PROJECTS.find((p) => p.id === projectId);
+  if (!data || !data.downloadUrl) return;
+
+  pendingDownloadData = data;
+
+  const confirmModal = document.getElementById('download-confirm-modal');
+  const titleEl = document.getElementById('confirm-game-title');
+  const fileEl = document.getElementById('confirm-file-name');
+  const sizeEl = document.getElementById('confirm-file-size');
+
+  if (titleEl) titleEl.textContent = data.title;
+  if (fileEl) {
+    const rawFileName = data.downloadUrl.split('/').pop() || 'game.zip';
+    fileEl.textContent = decodeURIComponent(rawFileName);
+  }
+  if (sizeEl) sizeEl.textContent = data.downloadSize || 'ZIPファイル';
+
+  if (confirmModal) {
+    confirmModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeDownloadConfirm() {
+  const confirmModal = document.getElementById('download-confirm-modal');
+  if (confirmModal) {
+    confirmModal.classList.remove('active');
+  }
+  pendingDownloadData = null;
+
+  // 作品詳細モーダルが背後に開いていない場合のみスクロールロックを解除
+  const projectModal = document.getElementById('project-modal');
+  if (!projectModal || !projectModal.classList.contains('active')) {
+    document.body.style.overflow = '';
+  }
+}
+
+function executeDownload() {
+  if (!pendingDownloadData || !pendingDownloadData.downloadUrl) return;
+
+  const url = pendingDownloadData.downloadUrl;
+  const fileName = url.split('/').pop() || 'game.zip';
+
+  // ダウンロードリンクを一時生成してクリック実行
+  const link = document.createElement('a');
+  link.href = encodeURI(url);
+  link.download = fileName;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  closeDownloadConfirm();
+}
+
+function initDownloadConfirmModal() {
+  const confirmModal = document.getElementById('download-confirm-modal');
+  const cancelBtn = document.getElementById('confirm-cancel-btn');
+  const closeBtn = document.getElementById('confirm-modal-close-btn');
+  const downloadBtn = document.getElementById('confirm-download-btn');
+
+  if (cancelBtn) cancelBtn.addEventListener('click', closeDownloadConfirm);
+  if (closeBtn) closeBtn.addEventListener('click', closeDownloadConfirm);
+  if (downloadBtn) downloadBtn.addEventListener('click', executeDownload);
+
+  if (confirmModal) {
+    confirmModal.addEventListener('click', (e) => {
+      if (e.target === confirmModal) {
+        closeDownloadConfirm();
+      }
+    });
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && confirmModal && confirmModal.classList.contains('active')) {
+      closeDownloadConfirm();
+    }
+  });
 }
 
 /* ==========================================================================

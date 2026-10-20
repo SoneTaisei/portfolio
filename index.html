@@ -383,6 +383,53 @@
     </div>
   </div>
 
+  <!-- ダウンロード確認モーダルウィンドウ -->
+  <div class="modal-overlay confirm-modal-overlay" id="download-confirm-modal" aria-hidden="true" role="dialog">
+    <div class="confirm-modal-dialog">
+      <button class="confirm-modal-close" id="confirm-modal-close-btn" aria-label="閉じる">&times;</button>
+      
+      <div class="confirm-modal-header">
+        <div class="confirm-modal-icon">
+          <i class="fa-solid fa-cloud-arrow-down"></i>
+        </div>
+        <div class="confirm-modal-title-area">
+          <h3 class="confirm-modal-title">ゲームをダウンロードしますか？</h3>
+          <p class="confirm-modal-subtitle">ZIPアーカイブ形式（実行ファイル＋ゲーム素材一式）</p>
+        </div>
+      </div>
+
+      <div class="confirm-modal-body">
+        <div class="confirm-game-card">
+          <div class="confirm-game-title" id="confirm-game-title">作品タイトル</div>
+          <div class="confirm-game-meta">
+            <span class="confirm-meta-chip"><i class="fa-regular fa-file-zipper"></i> <span id="confirm-file-name">filename.zip</span></span>
+            <span class="confirm-meta-chip size-chip"><i class="fa-solid fa-hard-drive"></i> <span id="confirm-file-size">約 0 MB</span></span>
+          </div>
+        </div>
+
+        <div class="confirm-guide-box">
+          <div class="confirm-guide-title"><i class="fa-solid fa-circle-info"></i> プレイ手順</div>
+          <ol class="confirm-guide-list">
+            <li>ZIPファイルをダウンロードします。</li>
+            <li>保存されたZIPファイルを右クリックし、<strong>「すべて展開」</strong>を選択して解凍します。</li>
+            <li>展開されたフォルダ内の<strong>「.exeファイル」</strong>をダブルクリックしてゲームを起動します。</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="confirm-modal-actions">
+        <button type="button" class="btn-confirm-download" id="confirm-download-btn">
+          <i class="fa-solid fa-download"></i>
+          <span>ダウンロードする</span>
+        </button>
+        <button type="button" class="btn-confirm-cancel" id="confirm-cancel-btn">
+          <i class="fa-solid fa-xmark"></i>
+          <span>キャンセル</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- フッター -->
   <footer class="footer">
     <div class="container footer-content">
