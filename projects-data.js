@@ -167,7 +167,7 @@ camera_->SetFov(Lerp(camera_->GetFov(), targetFov, 0.1f));`
     category: "game",
     featured: false,
     title: "宇宙からの帰還",
-    subTitle: "C++ / 3Dサバイバルアクション / 2年次 チーム制作",
+    subTitle: "C++ / ワンボタン3Dアクション / 2年次 チーム制作",
     repoUrl: "",
     downloadUrl: "Game/宇宙からの帰還.zip",
     downloadSize: "約 121 MB",
@@ -176,17 +176,17 @@ camera_->SetFov(Lerp(camera_->GetFov(), targetFov, 0.1f));`
     image: "https://i.ytimg.com/vi/arflBtpMQ3w/hqdefault.jpg",
     icon: "fa-solid fa-shuttle-space",
     iconColor: "#4f46e5",
-    tags: ["2年次 チーム制作", "C++", "DirectX", "3Dサバイバルアクション", "宇宙基地脱出"],
-    shortDesc: "遭難した宇宙基地からの生還を目指す3Dサバイバルアクション。ふわっと浮き上がる無重力アクションや、壁に埋まらない追従カメラを実装。",
+    tags: ["2年次 チーム制作", "C++", "DirectX", "ワンボタンアクション", "タイムアタック"],
+    shortDesc: "ボタンひとつのシンプル操作で宇宙空間を駆け抜ける3Dアクション。気流や障害物をタイミングよく突破し、最速ゴールタイムを目指すゲーム。",
     details: {
-      summary: "2年次後期のチーム制作作品です。危険な宇宙基地を探索し、脱出ポッドを目指す3Dサバイバルアクションゲームです。宇宙ならではのふわっと浮くようなジャンプ感覚や、通路や部屋を移動しても壁にカメラが埋まらない快適な視点操作にこだわって制作しました。",
-      role: "3Dアクションプログラマー（プレイヤーの移動・浮遊挙動、見やすい追従カメラ、仕掛けの作成）",
+      summary: "2年次後期のチーム制作作品です。誰でも直感的に遊べる『ボタンひとつのシンプル操作』にこだわった3Dタイムアタックアクションゲームです。タイミングよくボタンを押してダッシュを行い、ステージ内の気流ギミックや障害物をかいくぐってゴールを目指します。手軽だからこそ何度も挑戦したくなるリトライ性と、最速タイムを競うやりこみ要素を追求しました。",
+      role: "プレイヤー制御・ギミックプログラマー（ワンボタン操作レスポンス、気流ギミック、タイム記録機能、追従カメラ）",
       period: "2年次 後期 チーム制作",
       points: [
-        "狭い通路や壁際でもカメラが壁にめり込まず、常にキャラクターが見やすい追従カメラの実装",
-        "宇宙空間や低重力エリアでの、ふわっと浮き上がるジャンプやブースト移動の挙動作り",
-        "ボタンを押して開く防壁扉やエネルギー充電スイッチなど、基地内の仕掛けプログラミング",
-        "危険を知らせる警告音や警報ランプの点滅と連動した、緊迫感のある脱出演出"
+        "ボタンひとつ（スペース / Aボタン）で小気味よくダッシュできる直感的な操作感の実装",
+        "プレイヤーを押し流す気流ギミックやダメージブロックなど、タイミングが求められる仕掛けの制作",
+        "自己ベストタイムの記録・ランキング表示と、すぐに再挑戦できる快適なリトライ処理",
+        "壁際や狭い通路でもプレイヤーを見失わない、遮蔽物を回避する追従カメラ制御"
       ],
       codeSnippet: `// スプリングアームカメラの遮蔽物回避（レイキャスト）
 Vector3 desiredPos = target_->GetPosition() - forward_ * armLength_;
@@ -203,36 +203,36 @@ if (Physics::Raycast(target_->GetPosition(), -forward_, armLength_, &hit)) {
     category: "game",
     featured: false,
     title: "カチッと退社",
-    subTitle: "C++ / 2年次 短期チーム制作 (10Days) / オフィス脱出アクション",
+    subTitle: "C++ / 10日間の短期チーム制作 / 光切り替えパズルアクション",
     repoUrl: "",
     downloadUrl: "Game/カチッと退社.zip",
     downloadSize: "約 5.8 MB",
     youtubeId: "Wv0tr8IxW8I",
     youtubeUrl: "https://youtu.be/Wv0tr8IxW8I",
     image: "https://i.ytimg.com/vi/Wv0tr8IxW8I/hqdefault.jpg",
-    icon: "fa-solid fa-briefcase",
+    icon: "fa-solid fa-lightbulb",
     iconColor: "#ea580c",
-    tags: ["2年次 チーム制作", "C++", "短期集中開発 (10Days)", "オフィス脱出アクション", "ステルス隠れんぼ"],
-    shortDesc: "残業を押し付けてくる上司から逃げ回り、定時退社を目指すコミカルなオフィス脱出アクション。机の下に隠れて視界をやり過ごすスリルを追求。",
+    tags: ["2年次 チーム制作", "C++", "短期集中開発 (10Days)", "光切り替えギミック", "パズルアクション", "全20ステージ"],
+    shortDesc: "光の当たる方向を切り替えてオブジェクトの性質を変え、定時退社を目指すパズルアクション。10日間の短期開発で全20ステージを実装。",
     details: {
-      summary: "2年次前期にわずか10日間で完成まで持っていく短期集中チーム制作（10Days）で開発した作品です。『定時にタイムカードを押してオフィスを脱出する』というわかりやすい面白さをテーマに、見つかったら即残業というコミカルでスリリングなゲームを作りました。",
-      role: "リードプログラマー（ゲーム全体の進行、上司の見回りAI、机の下に隠れるギミック）",
+      summary: "2年次前期にわずか10日間で開発した短期集中チーム制作（10Days）作品です。スイッチをカチッと切り替えて『光の当たる方向』を変えることで、ツタが伸びて壁を登れるようになったりオブジェクトの効果が変わるパズルアクションゲームです。10日間という限られた期間の中で、光とギミックの連動システムをゼロから設計し、全20ステージを完成させました。",
+      role: "リードプログラマー（光の照射・オブジェクト変化ギミック、全20ステージ進行、敵の視界判定）",
       period: "2年次 前期 短期チーム制作 (10Days)",
       points: [
-        "見回る上司の『視界』を判定し、プレイヤーを見つけると追いかけてくる索敵AIの実装",
-        "上司が近づいたら机の下にサッと隠れてやり過ごす、直感的で分かりやすいステルスアクション",
-        "タイムカードを押してドアを開けるといったオフィスならではの脱出ギミック",
-        "10日間という短いスケジュールでメンバーとタスクを分担し、期限内にしっかり完成まで進行"
+        "【10日間のスピード開発】限られた期間内でタスクを素早く分解し、全20ステージの豊富なボリュームを完成",
+        "【光によるギミック変化】ライトの向きに応じてツタが伸びたり障害物の効果が変わる、光とオブジェクトの連動システム",
+        "【敵の視界とパズル性】見回る敵の視界を判定し、光を当てて足止めしたり影に隠れて進む仕掛けの実装",
+        "【快適なアクション操作】ツタの登り降りやジャンプ、ミスしてもすぐやり直せるテンポの良い手触り作り"
       ],
-      codeSnippet: `// 上司キャラクターの視界判定（視野角と距離）
-Vector3 toPlayer = playerPos - bossPos;
-float dist = Length(toPlayer);
-if (dist < viewDistance_) {
-    float dotVal = Dot(bossForward_, Normalize(toPlayer));
-    if (dotVal > cos(viewAngle_ * 0.5f)) {
-        TriggerOvertimeAlert(); // プレイヤー発見・残業アラート
+      codeSnippet: `// ライトの照射方向切り替えとステージギミックの更新
+void LightManager::SetLightDirection(Direction newDir) {
+    currentLightDir_ = newDir;
+    PlaySE("light.mp3");
+    // 光の向きに合わせてツタの成長やオブジェクトの状態を更新
+    for (auto& object : stageObjects_) {
+        object->UpdateByLight(currentLightDir_);
     }
-} `
+}`
     }
   },
   {
@@ -274,32 +274,32 @@ void World::InvertGravity() {
     category: "game",
     featured: false,
     title: "HelloWorld",
-    subTitle: "C++ / 1年次 チーム制作 / パズルアクション",
+    subTitle: "C++ / 1年次 チーム制作 / デジタルVSアナログ ボスバトル",
     repoUrl: "",
     downloadUrl: "Game/HelloWorld.zip",
     downloadSize: "約 19.2 MB",
     youtubeId: "lDyEmL3mluk",
     youtubeUrl: "https://youtu.be/lDyEmL3mluk",
     image: "https://i.ytimg.com/vi/lDyEmL3mluk/hqdefault.jpg",
-    icon: "fa-solid fa-terminal",
+    icon: "fa-solid fa-code",
     iconColor: "#059669",
-    tags: ["1年次 チーム制作", "C++", "プログラミングの世界", "ステージギミック"],
-    shortDesc: "デジタルなプログラムの世界をモチーフにしたアクションパズル。足場が出現・消滅するブロックの仕掛けを解き明かしてゴールを目指す作品。",
+    tags: ["1年次 チーム制作", "C++", "デジタルVSアナログ", "筆箱ボス戦", "deleteコマンド"],
+    shortDesc: "黒板（アナログ）の世界で巨大な「筆箱ボス」に挑む2Dアクション。プログラムならではの「deleteコマンド」で大ダメージを叩き込んで撃破。",
     details: {
-      summary: "プログラミングの世界に入り込んだような空間を冒険する、1年次後期のチーム制作パズルアクションです。スイッチを押すとブロックが現れたり消えたりする仕掛けをタイミングよく乗り継ぎながら、ゴールを目指して進んでいくゲームプレイを構築しました。",
-      role: "ゲームロジックプログラマー（ブロックの出現ギミック、当たり判定、ゲームの進行管理）",
+      summary: "1年次後期のチーム制作作品です。黒板の世界を舞台に、コードを操るデジタルな主人公が巨大な『筆箱ボス』に立ち向かう「デジタル VS アナログ」をテーマにした2Dボスバトルアクションです。筆箱から繰り出される多彩な攻撃や弾幕を避けながら、プログラムならではの必殺アクション『deleteコマンド』で大ダメージを与えて撃破する爽快なバトルをプログラミングしました。",
+      role: "バトル・システムプログラマー（筆箱ボスの行動AI・弾幕、deleteコマンド大ダメージ処理、当たり判定）",
       period: "1年次 後期 チーム制作",
       points: [
-        "タイミングに合わせて足場が現れたり消えたりするブロックの仕掛けと、乗降の当たり判定",
-        "ミスしてもすぐにその場でやり直せる、テンポを崩さないリトライ処理",
-        "初めてのチーム制作でメンバーとしっかり相談しながらC++コードを分担して制作"
+        "【deleteコマンドの実装】条件を満たして発動し、ボスへ特大ダメージを叩き込むプログラムならではの必殺アクション",
+        "【筆箱ボスの行動AI】怒り状態や体力の減少に応じて攻撃パターン（弾幕や突進）が激化するボス行動ロジックの構築",
+        "【ショット撃ち分けと手応え】複数の弾の切り替え、当たり判定、巨大なボスHPバーやヒット効果音の同期",
+        "【チーム開発の第一歩】初めてのチーム制作でメンバーとアイデアを出し合い、仕様策定からバグ修正までを完走"
       ],
-      codeSnippet: `// ステージギミックのブロック更新
-void PuzzleBlock::Update() {
-    if (isActive_) {
-        collider_->SetEnabled(true);
-        RenderBlock();
-    }
+      codeSnippet: `// deleteコマンド実行：ボスへ特大ダメージを与える
+void CommandManager::ExecuteDelete() {
+    PlaySE("deleteMode.mp3");
+    boss_->TakeMassiveDamage(deleteDamageAmount_); // 特大ダメージ
+    TriggerEffect("allDelete.png");
 }`
     }
   },
@@ -376,9 +376,9 @@ if (isGroundedOnMovingPlatform_) {
     repoUrl: "",
     downloadUrl: "Game/最強？勇者の地下伝説.zip",
     downloadSize: "約 6.5 MB",
-    youtubeId: "6FFvJGtwfxg",
-    youtubeUrl: "https://youtu.be/6FFvJGtwfxg",
-    image: "https://i.ytimg.com/vi/6FFvJGtwfxg/hqdefault.jpg",
+    youtubeId: "wqKRQNIobTQ",
+    youtubeUrl: "https://youtu.be/wqKRQNIobTQ",
+    image: "https://i.ytimg.com/vi/wqKRQNIobTQ/hqdefault.jpg",
     icon: "fa-solid fa-dungeon",
     iconColor: "#b45309",
     tags: ["1年次 チーム制作", "C++", "短期集中開発 (10Days)", "ダンジョン探索アクション"],
